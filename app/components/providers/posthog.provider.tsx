@@ -9,10 +9,9 @@ type PostHogProviderProps = {
 };
 
 const posthogOptions: Partial<PostHogConfig> = {
-  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST as string,
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
   defaults: "2025-05-24",
 };
-
 export const PostHogProvider: React.FC<PostHogProviderProps> = ({
   children,
 }) => (

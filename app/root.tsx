@@ -37,8 +37,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <AppProvider>
           {children}
           <ScrollRestoration />
+          <Scripts />
         </AppProvider>
-        <Scripts />
       </body>
     </html>
   );

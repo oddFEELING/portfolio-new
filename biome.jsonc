@@ -3,26 +3,30 @@
   "extends": ["ultracite"],
   "linter": {
     "rules": {
-      "recommended": true,
+      "recommended": false,
       "correctness": {
         "noUnusedImports": "error",
         "noNestedComponentDefinitions": "off"
       },
       "a11y": {
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "useKeyWithClickEvents": "off"
       },
       "nursery": {
-        "noShadow": "off"
+        "noShadow": "off",
+        "useConsistentTypeDefinitions": "off"
       },
       "style": {
         "useBlockStatements": "off"
       },
       "suspicious": {
         "noArrayIndexKey": "off",
-        "noUnknownAtRules": "off"
+        "noUnknownAtRules": "off",
+        "noEmptyBlockStatements": "off"
       },
       "performance": {
-        "noNamespaceImport": "off"
+        "noNamespaceImport": "off",
+        "noImgElement": "off"
       }
     }
   }

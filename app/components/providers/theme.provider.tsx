@@ -15,11 +15,11 @@ export type ThemeProvider = {
 export const useTheme = create<ThemeProvider>()(
   persist(
     (set) => ({
-      theme: "light",
+      theme: "dark",
       setTheme: (theme) => set({ theme }),
     }),
     {
-      name: "bellefull-theme",
+      name: "theme",
       storage: createJSONStorage(() => localStorage),
     }
   )

@@ -4,6 +4,7 @@ import { Toaster } from "../ui/sonner";
 
 // ~ ======= Providers ======= ~
 import NuqsProvider from "./nuqs.provider";
+import { PostHogProvider } from "./posthog.provider";
 import QueryProvider from "./query.provider";
 import ThemeProvider from "./theme.provider";
 
@@ -11,9 +12,8 @@ type AppProviderProps = {
   children: React.ReactNode;
 };
 
-export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  return (
-    // <PostHogProvider>
+export const AppProvider: React.FC<AppProviderProps> = ({ children }) => (
+  <PostHogProvider>
     <NuqsProvider>
       <QueryProvider>
         <ThemeProvider>
@@ -23,8 +23,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         </ThemeProvider>
       </QueryProvider>
     </NuqsProvider>
-    // </PostHogProvider>
-  );
-};
+  </PostHogProvider>
+);
 
 export default AppProvider;
