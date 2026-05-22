@@ -4,10 +4,11 @@ import type { Route } from "./+types/experience";
 /**
  * PLACEHOLDER NOTICE
  * ------------------
- * Company names, roles, employment types, dates, locations, degrees and
- * grades are REAL (from the resume). Every other detail — highlight bullets
- * and per-role tech lists — is invented placeholder data. Search this file
- * for `PLACEHOLDER` to find every value that must be tailored later.
+ * Company names, roles, employment types, dates, locations, degrees,
+ * grades and highlight bullets are REAL (from the resume). The per-role
+ * `tech` lists are INFERRED — the resume lists skills overall but does not
+ * break technologies down by role. Search this file for `PLACEHOLDER` to
+ * find the inferred values that should be confirmed.
  */
 
 export function meta(_: Route.MetaArgs) {
@@ -143,11 +144,11 @@ const workExperience: WorkItem[] = [
     period: "Mar 2025 — Present",
     location: "London",
     isCurrent: true,
-    // PLACEHOLDER: highlight bullets below are invented — replace with real detail
     highlights: [
-      "Placeholder: led architecture of the core AI chat workspace.",
-      "Placeholder: built the integrations directory connecting 50+ systems.",
-      "Placeholder: automated integration testing, cutting deploy errors 30%.",
+      "Founding engineer behind Zenning's core platform architecture across frontend and backend, establishing the patterns now powering AI chat workspaces, AI Employees, enterprise search and the integrations directory.",
+      "Shipped end-to-end product surfaces including AI-driven workflows and backend integrations connecting to 50+ third-party systems (Slack, Gmail, GitHub, Salesforce, Snowflake and others), owning everything from API design through frontend to deployment.",
+      "Automated integration testing within three months of joining, cutting deployment errors by 30% and giving a small team the confidence to ship continuously.",
+      "Designed the multi-tenant platform foundation on distributed systems, building patterns for B2B growth and validating them across early pilot deployments.",
     ],
     // PLACEHOLDER: tech list is inferred — confirm or correct
     tech: ["React", "TypeScript", "NestJS", "Node", "AWS", "Docker"],
@@ -159,11 +160,11 @@ const workExperience: WorkItem[] = [
     period: "Jan 2023 — Mar 2025",
     location: "London",
     isCurrent: false,
-    // PLACEHOLDER: highlight bullets below are invented — replace with real detail
     highlights: [
-      "Placeholder: built a real-time financial dashboard for unit economics.",
-      "Placeholder: developed an AI research tool for structured insights.",
-      "Placeholder: drove coding standards that reduced bugs by 40%.",
+      "Developed a financial dashboard enabling real-time monitoring of unit economics, improving decision-making for the features managed.",
+      "Developed an automated AI research tool that transformed unstructured data into structured insights, enhancing data accessibility.",
+      "Led the initiative to adopt best practices in coding standards, optimising the development process and reducing bugs by 40%.",
+      "Reduced bundle size and improved load times through code-splitting and lazy loading, giving a faster perceived experience on slower connections and lower-end devices.",
     ],
     // PLACEHOLDER: tech list is inferred — confirm or correct
     tech: ["React", "TypeScript", "Next.js", "Node"],
@@ -175,11 +176,11 @@ const workExperience: WorkItem[] = [
     period: "Aug 2021 — Jan 2023",
     location: "Abuja",
     isCurrent: false,
-    // PLACEHOLDER: highlight bullets below are invented — replace with real detail
     highlights: [
-      "Placeholder: replaced static charts with interactive D3 visualisations.",
-      "Placeholder: built automated web-scraping tools for time-sensitive data.",
-      "Placeholder: led end-to-end feature development on the core product.",
+      "Created and implemented dynamic interactive charts with D3 to replace static chart images, increasing click-through rates by 20% and driving 10K+ additional unique site visits.",
+      "Designed and built automated web-scraping tools to acquire time-sensitive data, resulting in an 8.7% decrease in operational costs.",
+      "Led the development of new features end-to-end using modern technologies, enhancing the codebase and improving user engagement by 15%.",
+      "Tailored git workflows to project needs, improving collaboration and reducing merge conflicts within three months.",
     ],
     // PLACEHOLDER: tech list is inferred — confirm or correct
     tech: ["JavaScript", "React", "D3", "Node"],
