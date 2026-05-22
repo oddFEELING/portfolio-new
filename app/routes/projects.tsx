@@ -1,5 +1,6 @@
 import { Highlighter } from "@/components/ui/highlighter";
 import Noise from "@/components/ui/noise";
+import PixelBlast from "@/components/ui/pixel-blast";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
 import { IconArrowUpRight } from "@tabler/icons-react";
@@ -67,11 +68,21 @@ export default function Projects() {
   return (
     <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
       <header className="landing-section relative col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-2 overflow-hidden border p-4 md:p-6">
-        <h1 className="font-semibold text-3xl">Projects</h1>
-        <p className="text-muted-foreground text-sm">
-          A few things I&apos;ve built — the rest lives in the work itself.
-        </p>
+        <PixelBlast
+          className="absolute inset-0"
+          color="#FF9800"
+          edgeFade={0.4}
+          patternScale={2.5}
+          pixelSize={4}
+          speed={0.4}
+        />
         <Noise patternAlpha={18} patternRefreshInterval={3} />
+        <div className="relative z-10 flex flex-col gap-2">
+          <h1 className="font-semibold text-3xl">Projects</h1>
+          <p className="text-muted-foreground text-sm">
+            A few things I&apos;ve built — the rest lives in the work itself.
+          </p>
+        </div>
       </header>
 
       <ProjectTile className="col-span-4 row-span-3" featured project={nubia} />
