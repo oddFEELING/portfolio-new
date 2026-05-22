@@ -55,6 +55,6 @@ export const projects: Project[] = [
     // PLACEHOLDER: summary is a stand-in — replace with real detail
     summary:
       "Placeholder: a tool that analyses how quickly users adopt new features and recommends actions to lift uptake across the product. A fuller summary is coming soon.",
-    links: [],
+    links: [{ label: "zenning.ai", href: "https://zenning.ai" }],
   },
 ];
