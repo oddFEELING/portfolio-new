@@ -76,7 +76,6 @@ export default function Projects() {
           pixelSize={4}
           speed={0.4}
         />
-        <Noise patternAlpha={18} patternRefreshInterval={3} />
         <div className="relative z-10 flex flex-col gap-2">
           <h1 className="font-semibold text-3xl">Projects</h1>
           <p className="text-muted-foreground text-sm">
@@ -91,17 +90,20 @@ export default function Projects() {
 
       <ProjectTile className="col-span-2 row-span-2" project={faa} />
 
-      <aside className="landing-section col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-3 border p-4 md:p-6">
-        <p className="font-medium text-lg leading-snug">
-          The work that{" "}
-          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            matters most
-          </Highlighter>{" "}
-          is the work that nobody is writing marketing copy about.
-        </p>
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          On building Nubia
-        </span>
+      <aside className="landing-section relative col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border p-4 md:p-6">
+        <Noise patternAlpha={18} patternRefreshInterval={3} />
+        <div className="relative z-10 flex flex-col gap-3">
+          <p className="font-medium text-lg leading-snug">
+            The work that{" "}
+            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+              matters most
+            </Highlighter>{" "}
+            is the work that nobody is writing marketing copy about.
+          </p>
+          <span className="text-muted-foreground text-xs uppercase tracking-wide">
+            On building Nubia
+          </span>
+        </div>
       </aside>
     </div>
   );
