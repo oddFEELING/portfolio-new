@@ -63,12 +63,12 @@ const AppSidebar = () => {
 
             <SidebarMenuItem>
               <SidebarMenuButton
-                isActive={checkActive("/about")}
-                onClick={() => navigate("/about")}
+                isActive={checkActive("/experience")}
+                onClick={() => navigate("/experience")}
                 size="md"
               >
                 <IconClipboardText size={20} stroke={1.5} />
-                <span>About</span>
+                <span>Experience</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
@@ -108,9 +108,12 @@ const AppSidebar = () => {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton>
+                <SidebarMenuButton
+                  isActive={checkActive("/open-source")}
+                  onClick={() => navigate("/open-source")}
+                >
                   <IconSpy size={20} stroke={1.5} />
-                  <span>Hackathons</span>
+                  <span>Open Source</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
