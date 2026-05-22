@@ -42,29 +42,31 @@ type EducationItem = {
 
 function ExperienceBlock({ item }: { item: WorkItem }) {
   return (
-    <article className="border-b cursor-pointer px-4 py-5 transition-colors duration-300 hover:bg-muted/30 md:px-6">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="font-semibold text-lg">{item.company}</h2>
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          {item.period} · {item.location}
-        </span>
+    <article className="border-b cursor-pointer py-5 transition-colors duration-300 hover:bg-muted/30">
+      <div className="px-4 md:px-6">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 className="font-semibold text-lg">{item.company}</h2>
+          <span className="text-muted-foreground text-xs uppercase tracking-wide">
+            {item.period} · {item.location}
+          </span>
+        </div>
+
+        <p className="mt-0.5 text-muted-foreground text-sm">
+          {item.isCurrent ? (
+            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+              {item.role}
+            </Highlighter>
+          ) : (
+            item.role
+          )}{" "}
+          · {item.employmentType}
+        </p>
       </div>
 
-      <p className="mt-0.5 text-muted-foreground text-sm">
-        {item.isCurrent ? (
-          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            {item.role}
-          </Highlighter>
-        ) : (
-          item.role
-        )}{" "}
-        · {item.employmentType}
-      </p>
-
-      <ul className="-ml-px mt-3 flex flex-col">
+      <ul className="-mx-px mt-3 flex flex-col">
         {item.highlights.map((highlight) => (
           <li
-            className="-mt-px border px-3 py-2 text-foreground/90 text-sm leading-relaxed"
+            className="-mt-px border px-4 py-2 text-foreground/90 text-sm leading-relaxed md:px-6"
             key={highlight}
           >
             {highlight}
@@ -72,7 +74,7 @@ function ExperienceBlock({ item }: { item: WorkItem }) {
         ))}
       </ul>
 
-      <div className="-ml-px mt-4 flex flex-wrap">
+      <div className="-mx-px -mt-px flex flex-wrap">
         {item.tech.map((tech) => (
           <span
             className="-mr-px -mb-px border px-2.5 py-1 text-muted-foreground text-xs"
