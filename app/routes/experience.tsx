@@ -1,5 +1,5 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
-import { IconDownload } from "@tabler/icons-react";
+import { IconDownload, IconMail } from "@tabler/icons-react";
 import type { Route } from "./+types/experience";
 
 /**
@@ -92,25 +92,31 @@ export default function Experience() {
             The roles I&apos;ve held and where I studied.
           </p>
         </div>
-        <a
-          className="flex items-center justify-between gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
-          download="Emmanuel_Alawode_Resume.pdf"
-          href={resumeUrl}
-        >
-          <span>
-            <span className="block font-semibold text-lg">
-              Download Résumé
-            </span>
-            <span className="block text-muted-foreground text-sm">
-              PDF · Updated May 2026
-            </span>
-          </span>
-          <IconDownload
-            className="shrink-0 text-muted-foreground"
-            size={24}
-            stroke={1.5}
-          />
-        </a>
+        <div className="grid grid-cols-2">
+          <a
+            className="flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            download="Emmanuel_Alawode_Resume.pdf"
+            href={resumeUrl}
+          >
+            <IconDownload
+              className="shrink-0 text-muted-foreground"
+              size={22}
+              stroke={1.5}
+            />
+            <span className="font-semibold text-sm">Download Résumé</span>
+          </a>
+          <a
+            className="flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            href="mailto:alawodeemmanuel2@gmail.com"
+          >
+            <IconMail
+              className="shrink-0 text-muted-foreground"
+              size={22}
+              stroke={1.5}
+            />
+            <span className="font-semibold text-sm">Get in Touch</span>
+          </a>
+        </div>
       </header>
 
       <section>
