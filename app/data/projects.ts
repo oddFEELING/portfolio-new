@@ -37,6 +37,17 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "goloka",
+    name: "Goloka",
+    period: "2024",
+    context: "Real-Time Market Intelligence",
+    // PLACEHOLDER: period and summary are stand-ins — goloka.io only states a
+    // tagline; confirm the dates/context and replace the summary with real detail.
+    summary:
+      "Placeholder: Goloka is a real-time market intelligence platform. A fuller summary is coming soon — confirm what it does and your role on it.",
+    links: [{ label: "goloka.io", href: "https://www.goloka.io/" }],
+  },
+  {
     slug: "feature-adoption-analyser",
     name: "Feature Adoption Analyser",
     period: "2025",

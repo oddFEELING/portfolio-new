@@ -1,4 +1,3 @@
-import { Highlighter } from "@/components/ui/highlighter";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
 import { IconArrowUpRight } from "@tabler/icons-react";
@@ -61,7 +60,7 @@ function ProjectTile({
 }
 
 export default function Projects() {
-  const [nubia, faa] = projects;
+  const [nubia, faa, goloka] = projects;
 
   return (
     <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
@@ -74,18 +73,7 @@ export default function Projects() {
 
       <ProjectTile className="col-span-4 row-span-3" featured project={nubia} />
 
-      <aside className="landing-section col-span-2 row-span-3 flex min-h-0 flex-col justify-center gap-3 border p-4 md:p-6">
-        <p className="font-medium text-xl leading-snug">
-          The work that{" "}
-          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            matters most
-          </Highlighter>{" "}
-          is the work that nobody is writing marketing copy about.
-        </p>
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          On building Nubia
-        </span>
-      </aside>
+      <ProjectTile className="col-span-2 row-span-3" project={goloka} />
 
       <ProjectTile className="col-span-4 row-span-2" project={faa} />
     </div>
