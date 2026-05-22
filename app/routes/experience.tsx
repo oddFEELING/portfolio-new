@@ -39,6 +39,52 @@ type EducationItem = {
   grade?: string;
 };
 
+function ExperienceBlock({ item }: { item: WorkItem }) {
+  return (
+    <article className="border-b px-4 py-5 transition-colors duration-300 hover:bg-muted/30 md:px-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 className="font-semibold text-lg">{item.company}</h2>
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          {item.period} · {item.location}
+        </span>
+      </div>
+
+      <p className="mt-0.5 text-muted-foreground text-sm">
+        {item.isCurrent ? (
+          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+            {item.role}
+          </Highlighter>
+        ) : (
+          item.role
+        )}{" "}
+        · {item.employmentType}
+      </p>
+
+      <ul className="mt-3 flex flex-col gap-1.5">
+        {item.highlights.map((highlight) => (
+          <li
+            className="text-foreground/90 text-sm leading-relaxed"
+            key={highlight}
+          >
+            {highlight}
+          </li>
+        ))}
+      </ul>
+
+      <div className="-ml-px mt-4 flex flex-wrap">
+        {item.tech.map((tech) => (
+          <span
+            className="-mr-px -mb-px border px-2.5 py-1 text-muted-foreground text-xs"
+            key={tech}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
 export default function Experience() {
   return (
     <div className="h-full overflow-y-auto">
@@ -51,9 +97,7 @@ export default function Experience() {
 
       <section>
         {workExperience.map((item) => (
-          <article className="border-b px-4 py-5 md:px-6" key={item.company}>
-            {item.company}
-          </article>
+          <ExperienceBlock item={item} key={item.company} />
         ))}
       </section>
 
