@@ -14,75 +14,82 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-function OpenSourceTile({
+function OpenSourceRow({
   project,
-  className,
-  featured,
+  index,
 }: {
   project: OpenSourceProject;
-  className: string;
-  featured?: boolean;
+  index: number;
 }) {
+  const isOwner = project.role === "Owner";
+  const roleClass = isOwner
+    ? "border-[#FF9800] text-[#FF9800]"
+    : "border-border text-muted-foreground";
+
   return (
-    <article
-      className={`landing-section flex min-h-0 flex-col overflow-hidden border p-4 md:p-6 ${className}`}
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-        <h2
-          className={
-            featured ? "font-semibold text-2xl" : "font-semibold text-xl"
-          }
+    <article className="landing-section grid min-h-0 grid-cols-12 overflow-hidden border-b transition-colors duration-300 hover:bg-muted/30">
+      <div className="col-span-1 flex min-h-0 items-center justify-center overflow-hidden border-r p-2 md:p-4">
+        <span className="font-mono text-5xl text-muted-foreground/30 tabular-nums leading-none">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+      </div>
+
+      <div className="col-span-4 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border-r p-4 md:p-6">
+        <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
+        <span
+          className={`w-fit border px-2 py-0.5 text-xs uppercase tracking-wide ${roleClass}`}
         >
-          {project.name}
-        </h2>
-        <span className="border px-2 py-0.5 text-muted-foreground text-xs uppercase tracking-wide">
           {project.role}
         </span>
       </div>
 
-      <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
-        {project.summary}
-      </p>
-
-      <div className="mt-auto flex flex-wrap gap-4 pt-4">
-        {project.links.map((link) => (
-          <a
-            className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
-            href={link.href}
-            key={link.href}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {link.label}
-            <IconArrowUpRight size={14} stroke={1.5} />
-          </a>
-        ))}
+      <div className="col-span-7 flex min-h-0 flex-col justify-center gap-3 overflow-hidden p-4 md:p-6">
+        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+          {project.summary}
+        </p>
+        <div className="flex flex-wrap gap-4">
+          {project.links.map((link) => (
+            <a
+              className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
+              href={link.href}
+              key={link.href}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {link.label}
+              <IconArrowUpRight size={14} stroke={1.5} />
+            </a>
+          ))}
+        </div>
       </div>
     </article>
   );
 }
 
 export default function OpenSource() {
-  const [chowbea, reactuse, gitnexus] = openSourceProjects;
+  const owned = openSourceProjects.filter((p) => p.role === "Owner").length;
+  const contributing = openSourceProjects.filter(
+    (p) => p.role === "Contributor"
+  ).length;
 
   return (
-    <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
-      <header className="landing-section col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-2 border p-4 md:p-6">
-        <h1 className="font-semibold text-3xl">Open Source</h1>
-        <p className="text-muted-foreground text-sm">
-          Things I maintain and help build in the open.
-        </p>
+    <div className="grid h-full grid-rows-[auto_1fr_1fr_1fr] overflow-hidden">
+      <header className="flex items-end justify-between gap-4 border-b px-4 py-5 md:px-6">
+        <div className="flex flex-col gap-1">
+          <h1 className="font-semibold text-3xl">Open Source</h1>
+          <p className="text-muted-foreground text-sm">
+            Things I maintain and help build in the open.
+          </p>
+        </div>
+        <span className="hidden font-mono text-muted-foreground text-xs uppercase tracking-wider sm:inline">
+          {openSourceProjects.length} projects · {owned} owned ·{" "}
+          {contributing} contributing
+        </span>
       </header>
 
-      <OpenSourceTile
-        className="col-span-4 row-span-3"
-        featured
-        project={chowbea}
-      />
-
-      <OpenSourceTile className="col-span-2 row-span-3" project={reactuse} />
-
-      <OpenSourceTile className="col-span-4 row-span-2" project={gitnexus} />
+      {openSourceProjects.map((project, index) => (
+        <OpenSourceRow index={index} key={project.slug} project={project} />
+      ))}
     </div>
   );
 }
