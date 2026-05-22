@@ -85,6 +85,23 @@ function ExperienceBlock({ item }: { item: WorkItem }) {
   );
 }
 
+function EducationBlock({ item }: { item: EducationItem }) {
+  return (
+    <article className="border-b px-4 py-5 transition-colors duration-300 hover:bg-muted/30 md:px-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 className="font-semibold text-lg">{item.school}</h2>
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          {item.period} · {item.location}
+        </span>
+      </div>
+      <p className="mt-0.5 text-muted-foreground text-sm">
+        {item.degree}
+        {item.grade ? ` · ${item.grade}` : ""}
+      </p>
+    </article>
+  );
+}
+
 export default function Experience() {
   return (
     <div className="h-full overflow-y-auto">
@@ -109,9 +126,7 @@ export default function Experience() {
 
       <section>
         {education.map((item) => (
-          <article className="border-b px-4 py-5 md:px-6" key={item.school}>
-            {item.school}
-          </article>
+          <EducationBlock item={item} key={item.school} />
         ))}
       </section>
     </div>
