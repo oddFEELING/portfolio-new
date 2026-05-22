@@ -1,3 +1,5 @@
+import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
+import { IconDownload } from "@tabler/icons-react";
 import type { Route } from "./+types/experience";
 
 /**
@@ -83,11 +85,32 @@ function EducationBlock({ item }: { item: EducationItem }) {
 export default function Experience() {
   return (
     <div className="h-full overflow-y-auto">
-      <header className="border-b px-4 py-3 md:px-6">
-        <h1 className="font-semibold text-2xl">Experience</h1>
-        <p className="text-muted-foreground text-sm">
-          The roles I&apos;ve held and where I studied.
-        </p>
+      <header className="grid grid-cols-2 border-b">
+        <div className="px-4 py-3 md:px-6">
+          <h1 className="font-semibold text-2xl">Experience</h1>
+          <p className="text-muted-foreground text-sm">
+            The roles I&apos;ve held and where I studied.
+          </p>
+        </div>
+        <a
+          className="flex items-center justify-between gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+          download="Emmanuel_Alawode_Resume.pdf"
+          href={resumeUrl}
+        >
+          <span>
+            <span className="block font-semibold text-lg">
+              Download Résumé
+            </span>
+            <span className="block text-muted-foreground text-sm">
+              PDF · Emmanuel Alawode
+            </span>
+          </span>
+          <IconDownload
+            className="shrink-0 text-muted-foreground"
+            size={24}
+            stroke={1.5}
+          />
+        </a>
       </header>
 
       <section>
