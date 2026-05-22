@@ -1,11 +1,7 @@
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Highlighter } from "@/components/ui/highlighter";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconArrowUpRight } from "@tabler/icons-react";
 import type { Route } from "./+types/projects";
 
 export function meta(_: Route.MetaArgs) {
@@ -18,89 +14,80 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-function ProjectBlock({ project }: { project: Project }) {
+function ProjectTile({
+  project,
+  className,
+  featured,
+}: {
+  project: Project;
+  className: string;
+  featured?: boolean;
+}) {
   return (
-    <Collapsible className="border-b">
-      <CollapsibleTrigger className="group flex w-full items-start justify-between gap-4 px-4 py-5 text-left transition-colors duration-300 hover:bg-muted/30 md:px-6">
-        <div className="flex flex-col gap-1">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h2 className="font-semibold text-lg">{project.name}</h2>
-            <span className="text-muted-foreground text-xs uppercase tracking-wide">
-              {project.period} · {project.context}
-            </span>
-          </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            {project.summary}
-          </p>
-        </div>
-        <IconChevronDown
-          className="mt-1 shrink-0 text-muted-foreground transition-transform duration-300 group-data-[state=open]:rotate-180"
-          size={20}
-          stroke={1.5}
-        />
-      </CollapsibleTrigger>
+    <article
+      className={`landing-section flex min-h-0 flex-col overflow-hidden border p-4 md:p-6 ${className}`}
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 className={featured ? "font-semibold text-2xl" : "font-semibold text-xl"}>
+          {project.name}
+        </h2>
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          {project.period} · {project.context}
+        </span>
+      </div>
+
+      <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+        {project.summary}
+      </p>
 
       {project.links.length > 0 && (
-        <div className="flex flex-wrap gap-4 px-4 pb-4 md:px-6">
+        <div className="mt-auto flex flex-wrap gap-4 pt-4">
           {project.links.map((link) => (
             <a
-              className="text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
               href={link.href}
               key={link.href}
               rel="noreferrer"
               target="_blank"
             >
               {link.label}
+              <IconArrowUpRight size={14} stroke={1.5} />
             </a>
           ))}
         </div>
       )}
-
-      <CollapsibleContent>
-        <div className="border-t px-4 py-6 md:px-6">
-          <div className="flex max-w-2xl flex-col gap-6">
-            {project.writeUp.map((section, index) => (
-              <section
-                className="flex flex-col gap-3"
-                key={section.heading ?? `section-${index}`}
-              >
-                {section.heading ? (
-                  <h3 className="font-semibold text-base">
-                    {section.heading}
-                  </h3>
-                ) : null}
-                {section.paragraphs.map((paragraph) => (
-                  <p
-                    className="text-foreground/90 text-sm leading-relaxed"
-                    key={paragraph}
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </section>
-            ))}
-          </div>
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
+    </article>
   );
 }
 
 export default function Projects() {
+  const [nubia, faa] = projects;
+
   return (
-    <div className="h-full overflow-y-auto">
-      <header className="border-b px-4 py-3 md:px-6">
-        <h1 className="font-semibold text-2xl">Projects</h1>
+    <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
+      <header className="landing-section col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-2 border p-4 md:p-6">
+        <h1 className="font-semibold text-3xl">Projects</h1>
         <p className="text-muted-foreground text-sm">
-          Selected work — tap a project to read the full write-up.
+          A few things I&apos;ve built — the rest lives in the work itself.
         </p>
       </header>
 
-      <section>
-        {projects.map((project) => (
-          <ProjectBlock key={project.slug} project={project} />
-        ))}
-      </section>
+      <ProjectTile className="col-span-4 row-span-3" featured project={nubia} />
+
+      <aside className="landing-section col-span-2 row-span-3 flex min-h-0 flex-col justify-center gap-3 border p-4 md:p-6">
+        <p className="font-medium text-xl leading-snug">
+          The work that{" "}
+          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+            matters most
+          </Highlighter>{" "}
+          is the work that nobody is writing marketing copy about.
+        </p>
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          On building Nubia
+        </span>
+      </aside>
+
+      <ProjectTile className="col-span-4 row-span-2" project={faa} />
     </div>
   );
 }
