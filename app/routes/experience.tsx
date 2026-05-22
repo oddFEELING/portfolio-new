@@ -102,7 +102,7 @@ export default function Experience() {
               Download Résumé
             </span>
             <span className="block text-muted-foreground text-sm">
-              PDF · Emmanuel Alawode
+              PDF · Updated May 2026
             </span>
           </span>
           <IconDownload
