@@ -1,6 +1,8 @@
+import DotGrid from "@/components/ui/dot-grid";
 import type { OpenSourceProject } from "@/data/open-source";
 import { openSourceProjects } from "@/data/open-source";
 import { IconArrowUpRight } from "@tabler/icons-react";
+import { useState } from "react";
 import type { Route } from "./+types/open-source";
 
 export function meta(_: Route.MetaArgs) {
@@ -21,20 +23,38 @@ function OpenSourceRow({
   project: OpenSourceProject;
   index: number;
 }) {
+  const [hovered, setHovered] = useState(false);
   const isOwner = project.role === "Owner";
   const roleClass = isOwner
     ? "border-[#FF9800] text-[#FF9800]"
     : "border-border text-muted-foreground";
 
   return (
-    <article className="landing-section grid min-h-0 grid-cols-12 overflow-hidden border-b transition-colors duration-300 hover:bg-muted/30">
-      <div className="col-span-1 flex min-h-0 items-center justify-center overflow-hidden border-r p-2 md:p-4">
+    <article
+      className="relative grid min-h-0 grid-cols-12 overflow-hidden border-b bg-background transition-colors duration-300"
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+    >
+      {hovered && (
+        <DotGrid
+          activeColor="#FF9800"
+          baseColor="#52525B"
+          className="pointer-events-none absolute inset-0"
+          dotSize={3}
+          gap={18}
+          proximity={120}
+          shockRadius={180}
+          shockStrength={4}
+        />
+      )}
+
+      <div className="relative z-10 col-span-1 flex min-h-0 items-center justify-center overflow-hidden border-r p-2 md:p-4">
         <span className="font-mono text-5xl text-muted-foreground/30 tabular-nums leading-none">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
 
-      <div className="col-span-4 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border-r p-4 md:p-6">
+      <div className="relative z-10 col-span-4 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border-r p-4 md:p-6">
         <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
         <span
           className={`w-fit border px-2 py-0.5 text-xs uppercase tracking-wide ${roleClass}`}
@@ -43,7 +63,7 @@ function OpenSourceRow({
         </span>
       </div>
 
-      <div className="col-span-7 flex min-h-0 flex-col justify-center gap-3 overflow-hidden p-4 md:p-6">
+      <div className="relative z-10 col-span-7 flex min-h-0 flex-col justify-center gap-3 overflow-hidden p-4 md:p-6">
         <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
           {project.summary}
         </p>
