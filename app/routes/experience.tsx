@@ -61,7 +61,7 @@ function ExperienceBlock({ item }: { item: WorkItem }) {
         · {item.employmentType}
       </p>
 
-      <ul className="mt-3 flex flex-col gap-3">
+      <ul className="-mx-4 mt-3 flex flex-col gap-3 border-y px-4 py-4 md:-mx-6 md:px-6">
         {item.highlights.map((highlight) => (
           <li
             className="text-foreground/90 text-sm leading-relaxed"
