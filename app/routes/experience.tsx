@@ -72,10 +72,10 @@ function ExperienceBlock({ item }: { item: WorkItem }) {
         ))}
       </ul>
 
-      <div className="-ml-px mt-4 flex flex-wrap">
+      <div className="-mx-4 -mb-5 mt-5 flex flex-wrap md:-mx-6">
         {item.tech.map((tech) => (
           <span
-            className="-mr-px -mb-px border px-2.5 py-1 text-muted-foreground text-xs"
+            className="-mr-px -mb-px flex grow items-center justify-center border px-3 py-2.5 text-center text-muted-foreground text-xs transition-colors duration-300 hover:bg-muted/30"
             key={tech}
           >
             {tech}
