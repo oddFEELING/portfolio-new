@@ -28,7 +28,7 @@ function OpenSourceRow({
   const [hovered, setHovered] = useState(false);
   const { theme } = useTheme();
   const isLight = theme === "light";
-  const dotBaseColor = isLight ? "#D4D4D8" : "#71717A";
+  const dotBaseColor = isLight ? "#A1A1AA" : "#71717A";
   const isOwner = project.role === "Owner";
   const roleClass = isOwner
     ? "border-[#FF9800] text-[#FF9800]"
