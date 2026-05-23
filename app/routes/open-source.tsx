@@ -32,7 +32,7 @@ function OpenSourceRow({
 
   return (
     <article
-      className="relative grid min-h-0 grid-cols-12 overflow-hidden border-b bg-background transition-colors duration-300"
+      className="relative grid grid-cols-[auto_1fr] overflow-hidden border-b bg-background transition-colors duration-300 md:min-h-0 md:grid-cols-12"
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
     >
@@ -49,13 +49,13 @@ function OpenSourceRow({
         />
       )}
 
-      <div className="relative z-10 col-span-1 flex min-h-0 items-center justify-center overflow-hidden border-r p-2 md:p-4">
-        <span className="font-mono text-5xl text-muted-foreground/30 tabular-nums leading-none">
+      <div className="relative z-10 flex items-center justify-center overflow-hidden border-r p-4 md:col-span-1 md:min-h-0 md:p-4">
+        <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none md:text-5xl">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
 
-      <div className="relative z-10 col-span-4 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border-r p-4 md:p-6">
+      <div className="relative z-10 flex flex-col justify-center gap-3 overflow-hidden p-4 md:col-span-4 md:min-h-0 md:border-r md:p-6">
         <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
         <span
           className={`w-fit border px-2 py-0.5 text-xs uppercase tracking-wide ${roleClass}`}
@@ -64,7 +64,7 @@ function OpenSourceRow({
         </span>
       </div>
 
-      <div className="relative z-10 col-span-7 flex min-h-0 flex-col justify-center gap-3 overflow-hidden p-4 md:p-6">
+      <div className="relative z-10 col-span-2 flex flex-col justify-center gap-3 overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
         <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
           {project.summary}
         </p>
@@ -95,7 +95,7 @@ export default function OpenSource() {
   ).length;
 
   return (
-    <div className="grid h-full grid-rows-[auto_1fr_1fr_1fr] overflow-hidden">
+    <div className="flex h-full flex-col overflow-y-auto md:grid md:grid-rows-[auto_1fr_1fr_1fr] md:overflow-hidden">
       <header className="flex items-end justify-between gap-4 border-b px-4 py-5 md:px-6">
         <div className="flex flex-col gap-1">
           <h1 className="font-semibold text-3xl">Open Source</h1>
