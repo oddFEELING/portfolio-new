@@ -93,11 +93,11 @@ export default function Experience() {
     <div className="h-full overflow-y-auto">
       {cursorActive && <TargetCursor />}
       <header
-        className="grid grid-cols-2 border-b"
+        className="flex flex-col border-b"
         onPointerEnter={() => setCursorActive(true)}
         onPointerLeave={() => setCursorActive(false)}
       >
-        <div className="px-4 py-3 md:px-6">
+        <div className="border-b px-4 py-3 md:px-6">
           <h1 className="font-semibold text-2xl">Experience</h1>
           <p className="text-muted-foreground text-sm">
             The roles I&apos;ve held and where I studied.
@@ -106,14 +106,14 @@ export default function Experience() {
         <div className="grid grid-cols-[auto_1fr_1fr]">
           <button
             aria-label="Toggle sidebar"
-            className="cursor-target flex items-center justify-center border-l px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground md:px-6"
+            className="cursor-target flex items-center justify-center px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground sm:px-4 md:px-6"
             onClick={toggleSidebar}
             type="button"
           >
             <IconLayout className="shrink-0" size={22} stroke={1.5} />
           </button>
           <a
-            className="cursor-target flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
             download="Emmanuel_Alawode_Resume.pdf"
             href={resumeUrl}
           >
@@ -122,10 +122,12 @@ export default function Experience() {
               size={22}
               stroke={1.5}
             />
-            <span className="font-semibold text-sm">Download Résumé</span>
+            <span className="truncate font-semibold text-sm">
+              Download Résumé
+            </span>
           </a>
           <a
-            className="cursor-target flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
             href="mailto:alawodeemmanuel2@gmail.com"
           >
             <IconMail
@@ -133,7 +135,9 @@ export default function Experience() {
               size={22}
               stroke={1.5}
             />
-            <span className="font-semibold text-sm">Get in Touch</span>
+            <span className="truncate font-semibold text-sm">
+              Get in Touch
+            </span>
           </a>
         </div>
       </header>
