@@ -61,6 +61,6 @@ export const projects: Project[] = [
     context: "Loyalty SaaS",
     summary:
       "An all-in-one loyalty platform for restaurants, cafés, salons and retail. Customers scan QR codes placed on tables, counters or seats to earn points, stamps, tiered rewards or cashback, with multi-branch role-based access and automated campaigns that track visits and dispatch rewards on autopilot.",
-    links: [{ label: "chowbea.com", href: "https://chowbea.com" }],
+    links: [{ label: "staging.chowbea.com", href: "https://staging.chowbea.com" }],
   },
 ];
