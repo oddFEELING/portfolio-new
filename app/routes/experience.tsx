@@ -1,6 +1,7 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
 import TargetCursor from "@/components/ui/target-cursor";
 import { IconDownload, IconMail } from "@tabler/icons-react";
+import { useState } from "react";
 import type { Route } from "./+types/experience";
 
 /**
@@ -84,10 +85,16 @@ function EducationBlock({ item }: { item: EducationItem }) {
 }
 
 export default function Experience() {
+  const [cursorActive, setCursorActive] = useState(false);
+
   return (
     <div className="h-full overflow-y-auto">
-      <TargetCursor />
-      <header className="grid grid-cols-2 border-b">
+      {cursorActive && <TargetCursor />}
+      <header
+        className="grid grid-cols-2 border-b"
+        onPointerEnter={() => setCursorActive(true)}
+        onPointerLeave={() => setCursorActive(false)}
+      >
         <div className="px-4 py-3 md:px-6">
           <h1 className="font-semibold text-2xl">Experience</h1>
           <p className="text-muted-foreground text-sm">
