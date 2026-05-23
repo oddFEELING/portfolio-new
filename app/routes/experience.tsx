@@ -93,11 +93,11 @@ export default function Experience() {
     <div className="h-full overflow-y-auto">
       {cursorActive && <TargetCursor />}
       <header
-        className="flex flex-col border-b"
+        className="flex flex-col border-b md:grid md:grid-cols-2"
         onPointerEnter={() => setCursorActive(true)}
         onPointerLeave={() => setCursorActive(false)}
       >
-        <div className="border-b px-4 py-3 md:px-6">
+        <div className="border-b px-4 py-3 md:border-b-0 md:px-6">
           <h1 className="font-semibold text-2xl">Experience</h1>
           <p className="text-muted-foreground text-sm">
             The roles I&apos;ve held and where I studied.
@@ -106,7 +106,7 @@ export default function Experience() {
         <div className="grid grid-cols-[auto_1fr_1fr]">
           <button
             aria-label="Toggle sidebar"
-            className="cursor-target flex items-center justify-center px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground sm:px-4 md:px-6"
+            className="cursor-target flex items-center justify-center px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground sm:px-4 md:border-l md:px-6"
             onClick={toggleSidebar}
             type="button"
           >

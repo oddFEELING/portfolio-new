@@ -70,7 +70,7 @@ export default function Projects() {
   return (
     <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
       <header className="landing-section relative flex overflow-hidden border md:col-span-2 md:row-span-2 md:min-h-0">
-        <div className="relative flex flex-1 flex-col justify-center gap-2 overflow-hidden px-4 py-10 md:px-6 md:py-12">
+        <div className="relative flex flex-1 flex-col justify-center gap-2 overflow-hidden px-4 py-10 md:px-6 md:py-6">
           <PixelBlast
             className="absolute inset-0"
             color="#FF9800"
