@@ -38,8 +38,8 @@ function OpenSourceRow({
     >
       {hovered && (
         <DotGrid
-          activeColor="#71717A"
-          baseColor="#3F3F46"
+          activeColor="#FF9800"
+          baseColor="#71717A"
           className="pointer-events-none absolute inset-0"
           dotSize={3}
           gap={18}
