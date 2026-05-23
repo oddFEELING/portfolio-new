@@ -36,7 +36,7 @@ function OpenSourceRow({
 
   return (
     <article
-      className="relative grid grid-cols-[auto_1fr] overflow-hidden border-b bg-background transition-colors duration-300 md:min-h-0 md:grid-cols-12"
+      className="landing-section relative grid grid-cols-[auto_1fr] overflow-hidden border-b md:min-h-0 md:grid-cols-12"
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
     >
