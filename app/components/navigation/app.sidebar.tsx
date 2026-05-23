@@ -90,7 +90,10 @@ const AppSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
+                <SidebarMenuButton
+                  isActive={checkActive("/blog")}
+                  onClick={() => navigate("/blog")}
+                >
                   <IconPencilMinus size={20} stroke={1.5} />
                   <span>Blog</span>
                 </SidebarMenuButton>
