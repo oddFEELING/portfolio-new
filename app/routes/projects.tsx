@@ -74,10 +74,10 @@ export default function Projects() {
           <PixelBlast
             className="absolute inset-0"
             color="#FF9800"
-            edgeFade={0.6}
-            patternDensity={0.5}
+            edgeFade={0.55}
+            patternDensity={0.75}
             patternScale={2}
-            pixelSize={8}
+            pixelSize={5}
             speed={0.4}
           />
           <div className="relative z-10 flex flex-col gap-2">
@@ -94,7 +94,8 @@ export default function Projects() {
           type="button"
         >
           <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
-            Sidebar
+            <span className="md:hidden">Sidebar</span>
+            <span className="hidden md:inline">Toggle Sidebar</span>
           </span>
         </button>
       </header>
