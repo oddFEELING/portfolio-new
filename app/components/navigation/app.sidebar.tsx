@@ -5,7 +5,6 @@ import {
   IconCalendar,
   IconCalendarStats,
   IconClipboardText,
-  IconCpu,
   IconListDetails,
   IconNews,
   IconNotebook,
@@ -83,16 +82,6 @@ const AppSidebar = () => {
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                isActive={checkActive("/operating-system")}
-                onClick={() => navigate("/operating-system")}
-                size="md"
-              >
-                <IconCpu size={20} stroke={1.5} />
-                <span>Operating System</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
 
