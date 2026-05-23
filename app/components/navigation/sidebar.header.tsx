@@ -36,26 +36,22 @@ export function NavHeader({ data }: NavHeaderProps) {
 
   return (
     <>
-      <SidebarHeader>
-        <div className="flex cursor-pointer items-center justify-between px-2 pt-3 pb-0">
-          <div
-            className="flex flex-1 items-center gap-3"
-            onClick={() => setOpen(true)}
-            role="button"
-            tabIndex={0}
-          >
-            <IconMessage className="h-4 w-4 text-muted-foreground" />
-            <span className="font-normal text-muted-foreground text-sm">
-              Bea...
-            </span>
-          </div>
-
-          <div className="flex items-center justify-center rounded-md border border-border px-2 py-1">
-            <kbd className="inline-flex font-[inherit] font-medium text-muted-foreground text-xs">
-              <span className="opacity-70">⌘K</span>
+      <SidebarHeader className="border-border/40 border-b p-0">
+        <button
+          className="group/cmd flex w-full items-center justify-between gap-2 px-3 py-3 text-left transition-colors hover:bg-[#FF9800]/[0.05]"
+          onClick={() => setOpen(true)}
+          type="button"
+        >
+          <span className="flex items-center gap-2 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-[0.3em] transition-colors group-hover/cmd:text-[#FF9800]">
+            <IconMessage size={14} stroke={1.5} />
+            BEA
+          </span>
+          <span className="flex items-center justify-center border border-border/60 px-1.5 py-0.5 transition-colors group-hover/cmd:border-[#FF9800]/40">
+            <kbd className="font-mono text-[0.6rem] text-muted-foreground uppercase tracking-wider transition-colors group-hover/cmd:text-[#FF9800]">
+              ⌘K
             </kbd>
-          </div>
-        </div>
+          </span>
+        </button>
       </SidebarHeader>
 
       <CommandDialog onOpenChange={setOpen} open={open}>

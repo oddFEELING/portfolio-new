@@ -31,13 +31,13 @@ export default function Home() {
         <h1 className="w-full max-w-2xl font-semibold text-4xl">
           I&apos;m Emmanuel - A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            Software Engineer
+            Full-stack Engineer
           </Highlighter>{" "}
           And I like to build stuff.
         </h1>
         <p className="w-full max-w-lg text-muted-foreground">
-          I am a seasoned software engineer with 5+ years or experience shipping
-          products for companies in a myraid of domains.
+          I am a seasoned full stack engineer with a focus on AI, shipping
+          products for companies in a myriad of domains.
         </p>
 
         <div className="mt-2 flex flex-wrap items-center gap-3">

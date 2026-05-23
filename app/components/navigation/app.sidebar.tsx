@@ -1,6 +1,7 @@
 import {
   IconAd2,
   IconApiApp,
+  IconAt,
   IconBellRinging,
   IconCalendar,
   IconCalendarStats,
@@ -13,6 +14,7 @@ import {
   IconSettingsCode,
   IconSofa,
   IconSpy,
+  type TablerIcon,
 } from "@tabler/icons-react";
 import { LayoutDashboard, Package } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
@@ -31,6 +33,20 @@ import {
 import { NavHeader } from "./sidebar.header";
 import type { SidebarData } from "./types";
 
+type NavItem = { path: string; label: string; Icon: TablerIcon };
+
+const primaryNav: NavItem[] = [
+  { path: "/", label: "Home", Icon: IconSofa },
+  { path: "/experience", label: "Experience", Icon: IconClipboardText },
+  { path: "/projects", label: "Projects", Icon: IconApiApp },
+  { path: "/contact", label: "Contact", Icon: IconAt },
+];
+
+const othersNav: NavItem[] = [
+  { path: "/blog", label: "Blog", Icon: IconPencilMinus },
+  { path: "/open-source", label: "Open Source", Icon: IconSpy },
+];
+
 const AppSidebar = () => {
   const pathname = useLocation().pathname;
   const navigate = useNavigate();
@@ -45,6 +61,29 @@ const AppSidebar = () => {
     }
   };
 
+  const renderItem = (item: NavItem) => (
+    <SidebarMenuItem key={item.path}>
+      <SidebarMenuButton
+        className="group/nav relative h-auto gap-3 rounded-none px-3 py-3 font-mono text-[0.7rem] text-muted-foreground uppercase tracking-[0.2em] transition-colors hover:bg-transparent hover:text-[#FF9800] data-[active=true]:bg-[#FF9800]/[0.06] data-[active=true]:font-normal data-[active=true]:text-[#FF9800]"
+        isActive={checkActive(item.path)}
+        onClick={() => handleNav(item.path)}
+      >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 bg-[#FF9800] transition-transform duration-300 group-data-[active=true]/nav:scale-y-100"
+        />
+        <item.Icon size={16} stroke={1.5} />
+        <span>{item.label}</span>
+        <span
+          aria-hidden="true"
+          className="ml-auto translate-x-1 text-[#FF9800] opacity-0 transition-all duration-300 group-hover/nav:translate-x-0 group-hover/nav:opacity-100 group-data-[active=true]/nav:translate-x-0 group-data-[active=true]/nav:opacity-100"
+        >
+          ▸
+        </span>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+
   return (
     <Sidebar variant="inset">
       {/* ~ =================================== ~ */}
@@ -57,67 +96,15 @@ const AppSidebar = () => {
       {/* ~ =================================== ~ */}
       <SidebarContent>
         <SidebarGroup>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                isActive={checkActive("/")}
-                onClick={() => handleNav("/")}
-                size="md"
-              >
-                <IconSofa size={20} stroke={1.5} />
-                <span>Home</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                isActive={checkActive("/experience")}
-                onClick={() => handleNav("/experience")}
-                size="md"
-              >
-                <IconClipboardText size={20} stroke={1.5} />
-                <span>Experience</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                isActive={checkActive("/projects")}
-                onClick={() => handleNav("/projects")}
-                size="md"
-              >
-                <IconApiApp size={20} stroke={1.5} />
-                <span>Projects</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-          </SidebarMenu>
+          <SidebarMenu>{primaryNav.map(renderItem)}</SidebarMenu>
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Others</SidebarGroupLabel>
+          <SidebarGroupLabel className="rounded-none font-mono text-[0.6rem] text-muted-foreground/60 uppercase tracking-[0.3em]">
+            OTHERS
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive={checkActive("/blog")}
-                  onClick={() => handleNav("/blog")}
-                >
-                  <IconPencilMinus size={20} stroke={1.5} />
-                  <span>Blog</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive={checkActive("/open-source")}
-                  onClick={() => handleNav("/open-source")}
-                >
-                  <IconSpy size={20} stroke={1.5} />
-                  <span>Open Source</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <SidebarMenu>{othersNav.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
@@ -125,7 +112,11 @@ const AppSidebar = () => {
       {/* ~ =================================== ~ */}
       {/* -- Footer -- */}
       {/* ~ =================================== ~ */}
-      <SidebarFooter />
+      <SidebarFooter className="border-border/40 border-t px-3 py-3">
+        <p className="font-mono text-[0.55rem] text-muted-foreground/40 uppercase tracking-[0.3em]">
+          ▒ END_OF_NAV ▒
+        </p>
+      </SidebarFooter>
     </Sidebar>
   );
 };

@@ -146,29 +146,26 @@ export default function Experience() {
 
       <section className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
         <div className="md:order-1">
-          <div className="flex flex-col gap-6 px-4 py-8 md:gap-8 md:px-6 md:py-12">
+          <div className="flex flex-col gap-8 px-4 py-14 md:gap-12 md:px-6 md:py-24">
             <p className="text-balance text-lg leading-relaxed md:text-xl">
               Full-stack engineer with{" "}
               <Highlighter
                 action="underline"
                 color="#FF9800"
-                strokeWidth={2}
+                strokeWidth={1}
               >
                 four years
               </Highlighter>{" "}
-              building production applications end-to-end — including founding
-              engineering on a multi-product AI platform spanning chat
-              workspaces, autonomous agents, enterprise search, and{" "}
+              shipping AI products end-to-end, founding engineering on a
+              multi-product platform with{" "}
               <Highlighter
                 action="underline"
                 color="#FF9800"
-                strokeWidth={2}
+                strokeWidth={1}
               >
                 50+ integrations
-              </Highlighter>
-              . Comfortable across React, TypeScript, NestJS and Node, owning
-              systems from architecture and API design through to frontend and
-              deployment. Quick to pick up new domains, tooling and stacks.
+              </Highlighter>{" "}
+              and owning everything from API design to deployment.
             </p>
             <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
               Currently &mdash; Founding AI/Software Engineer at Zenning AI
@@ -189,16 +186,16 @@ export default function Experience() {
             <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
               // About
             </p>
-            <h2 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-5xl">
+            <h2 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-6xl">
               <ShutterText
                 className="justify-start!"
-                text="The short"
+                text="Probably"
                 trigger="auto"
               />
               <span className="flex items-baseline">
                 <ShutterText
                   className="justify-start!"
-                  text="version"
+                  text="a steal"
                   trigger="auto"
                 />
                 <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">

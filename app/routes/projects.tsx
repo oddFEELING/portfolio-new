@@ -5,6 +5,7 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
 import { IconArrowUpRight } from "@tabler/icons-react";
+import { useState } from "react";
 import type { Route } from "./+types/projects";
 
 export function meta(_: Route.MetaArgs) {
@@ -26,11 +27,17 @@ function ProjectTile({
   className: string;
   featured?: boolean;
 }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <article
-      className={`landing-section flex flex-col border p-6 md:min-h-0 md:overflow-hidden md:p-6 ${className}`}
+      className={`landing-section relative flex flex-col overflow-hidden border p-6 md:min-h-0 md:p-6 ${className}`}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      {hovered && <Noise patternAlpha={18} patternRefreshInterval={3} />}
+
+      <div className="relative z-10 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className={featured ? "font-semibold text-2xl" : "font-semibold text-xl"}>
           {project.name}
         </h2>
@@ -39,12 +46,12 @@ function ProjectTile({
         </span>
       </div>
 
-      <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+      <p className="relative z-10 mt-3 text-muted-foreground text-sm leading-relaxed">
         {project.summary}
       </p>
 
       {project.links.length > 0 && (
-        <div className="mt-auto flex flex-wrap gap-4 pt-4">
+        <div className="relative z-10 mt-auto flex flex-wrap gap-4 pt-4">
           {project.links.map((link) => (
             <a
               className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
@@ -64,7 +71,7 @@ function ProjectTile({
 }
 
 export default function Projects() {
-  const [nubia, faa, goloka] = projects;
+  const [nubia, goloka, faa, chowbea] = projects;
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -101,29 +108,31 @@ export default function Projects() {
       </header>
 
       <ProjectTile
-        className="md:col-span-4 md:row-span-3"
+        className="md:col-span-4 md:row-span-2"
         featured
         project={nubia}
       />
 
-      <ProjectTile className="md:col-span-2 md:row-span-3" project={goloka} />
+      <ProjectTile className="md:col-span-2 md:row-span-2" project={goloka} />
 
       <ProjectTile className="md:col-span-2 md:row-span-2" project={faa} />
 
-      <aside className="landing-section relative flex flex-col justify-center gap-3 overflow-hidden border p-6 md:col-span-2 md:row-span-2 md:min-h-0 md:p-6">
+      <ProjectTile className="md:col-span-2 md:row-span-2" project={chowbea} />
+
+      <aside className="landing-section relative flex flex-wrap items-center justify-between gap-4 overflow-hidden border p-6 md:col-span-6 md:row-span-1 md:min-h-0 md:p-6">
         <Noise patternAlpha={18} patternRefreshInterval={3} />
-        <div className="relative z-10 flex flex-col gap-3">
-          <p className="font-medium text-lg leading-snug">
+        <div className="relative z-10 flex flex-1 flex-col gap-1">
+          <p className="font-medium text-base leading-snug md:text-lg">
             The work that{" "}
-            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+            <Highlighter action="underline" color="#FF9800" strokeWidth={1}>
               matters most
             </Highlighter>{" "}
             is the work that nobody is writing marketing copy about.
           </p>
-          <span className="text-muted-foreground text-xs uppercase tracking-wide">
-            On building Nubia
-          </span>
         </div>
+        <span className="relative z-10 text-muted-foreground text-xs uppercase tracking-wide">
+          On building Nubia
+        </span>
       </aside>
     </div>
   );

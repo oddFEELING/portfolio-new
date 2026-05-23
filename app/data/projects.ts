@@ -24,10 +24,10 @@ export const projects: Project[] = [
   {
     slug: "nubia",
     name: "Nubia",
-    period: "2022 — Present",
+    period: "2022",
     context: "Dataphyte",
     summary:
-      "An AI platform for African data journalism, built over four years in partnership with Archivi.ng, Daily Trust and Business Day. I designed its technical foundation — a Next.js frontend on an agentic microservice backend, a hosted LLM service, and a provenance-first vector store built around how journalists actually use their sources. The interesting problems sat upstream of generation: messy ingestion, local voice, lean infrastructure and verifiable output.",
+      "An AI platform for African data journalism, built over four years in partnership with Archivi.ng, Daily Trust and Business Day. I designed its technical foundation: a Next.js frontend on an agentic microservice backend, a hosted LLM service, and a provenance-first vector store built around how journalists actually use their sources. The interesting problems sat upstream of generation: messy ingestion, local voice, lean infrastructure and verifiable output.",
     links: [
       {
         label: "LSE Polis write-up",
@@ -40,11 +40,9 @@ export const projects: Project[] = [
     slug: "goloka",
     name: "Goloka",
     period: "2024",
-    context: "Real-Time Market Intelligence",
-    // PLACEHOLDER: period and summary are stand-ins — goloka.io only states a
-    // tagline; confirm the dates/context and replace the summary with real detail.
+    context: "Dataphyte",
     summary:
-      "Placeholder: Goloka is a real-time market intelligence platform. A fuller summary is coming soon — confirm what it does and your role on it.",
+      "AI-powered market intelligence drawn from a network of on-the-ground citizen contributors, delivering hyperlocal data for businesses, governments and development organisations. The platform has powered work like Meta's multilingual AI training across five Nigerian languages.",
     links: [{ label: "goloka.io", href: "https://www.goloka.io/" }],
   },
   {
@@ -52,9 +50,17 @@ export const projects: Project[] = [
     name: "Feature Adoption Analyser",
     period: "2025",
     context: "Zenning AI",
-    // PLACEHOLDER: summary is a stand-in — replace with real detail
     summary:
-      "Placeholder: a tool that analyses how quickly users adopt new features and recommends actions to lift uptake across the product. A fuller summary is coming soon.",
+      "An in-house admin dashboard for monitoring feature adoption across the product, surfacing usage stats and generating automated recommendations for the next actions to lift uptake.",
     links: [{ label: "zenning.ai", href: "https://zenning.ai" }],
+  },
+  {
+    slug: "chowbea",
+    name: "Chowbea",
+    period: "2025",
+    context: "Loyalty SaaS",
+    summary:
+      "An all-in-one loyalty platform for restaurants, cafés, salons and retail. Customers scan QR codes placed on tables, counters or seats to earn points, stamps, tiered rewards or cashback, with multi-branch role-based access and automated campaigns that track visits and dispatch rewards on autopilot.",
+    links: [{ label: "chowbea.com", href: "https://chowbea.com" }],
   },
 ];
