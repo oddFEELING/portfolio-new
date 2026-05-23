@@ -99,7 +99,7 @@ export default function Experience() {
         onPointerEnter={() => setCursorActive(true)}
         onPointerLeave={() => setCursorActive(false)}
       >
-        <div className="border-b px-4 py-3 md:border-b-0 md:px-6">
+        <div className="border-b px-4 py-6 md:border-b-0 md:px-6 md:py-3">
           <h1 className="font-semibold text-2xl">Experience</h1>
           <p className="text-muted-foreground text-sm">
             The roles I&apos;ve held and where I studied.
@@ -210,7 +210,7 @@ export default function Experience() {
         </aside>
       </section>
 
-      <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
+      <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
         <span className="text-muted-foreground text-xs uppercase tracking-wide">
           Work Experience
         </span>
@@ -222,7 +222,7 @@ export default function Experience() {
         ))}
       </section>
 
-      <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
+      <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
         <span className="text-muted-foreground text-xs uppercase tracking-wide">
           Education
         </span>

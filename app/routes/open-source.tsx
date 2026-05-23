@@ -47,7 +47,7 @@ function OpenSourceRow({
       </div>
 
       <div className="relative z-10 flex flex-col overflow-hidden md:col-span-4 md:min-h-0 md:border-r">
-        <div className="flex flex-1 items-center px-4 py-4 md:px-6 md:py-6">
+        <div className="flex flex-1 items-center px-4 py-6 md:px-6">
           <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
         </div>
         <div
@@ -57,7 +57,7 @@ function OpenSourceRow({
         </div>
       </div>
 
-      <div className="relative z-10 col-span-2 flex flex-col justify-center overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
+      <div className="relative z-10 col-span-2 flex flex-col justify-center overflow-hidden border-t px-4 py-6 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
         {hovered && (
           <DotGrid
             activeColor="#FF9800"

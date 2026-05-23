@@ -28,7 +28,7 @@ function ProjectTile({
 }) {
   return (
     <article
-      className={`landing-section flex flex-col border p-4 md:min-h-0 md:overflow-hidden md:p-6 ${className}`}
+      className={`landing-section flex flex-col border p-6 md:min-h-0 md:overflow-hidden md:p-6 ${className}`}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className={featured ? "font-semibold text-2xl" : "font-semibold text-xl"}>
@@ -110,7 +110,7 @@ export default function Projects() {
 
       <ProjectTile className="md:col-span-2 md:row-span-2" project={faa} />
 
-      <aside className="landing-section relative flex flex-col justify-center gap-3 overflow-hidden border p-4 md:col-span-2 md:row-span-2 md:min-h-0 md:p-6">
+      <aside className="landing-section relative flex flex-col justify-center gap-3 overflow-hidden border p-6 md:col-span-2 md:row-span-2 md:min-h-0 md:p-6">
         <Noise patternAlpha={18} patternRefreshInterval={3} />
         <div className="relative z-10 flex flex-col gap-3">
           <p className="font-medium text-lg leading-snug">

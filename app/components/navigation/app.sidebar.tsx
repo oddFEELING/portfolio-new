@@ -26,6 +26,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "../ui/sidebar";
 import { NavHeader } from "./sidebar.header";
 import type { SidebarData } from "./types";
@@ -33,8 +34,16 @@ import type { SidebarData } from "./types";
 const AppSidebar = () => {
   const pathname = useLocation().pathname;
   const navigate = useNavigate();
+  const { isMobile, setOpenMobile } = useSidebar();
 
   const checkActive = (path: string) => pathname === path;
+
+  const handleNav = (path: string) => {
+    navigate(path);
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   return (
     <Sidebar variant="inset">
@@ -52,7 +61,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={checkActive("/")}
-                onClick={() => navigate("/")}
+                onClick={() => handleNav("/")}
                 size="md"
               >
                 <IconSofa size={20} stroke={1.5} />
@@ -63,7 +72,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={checkActive("/experience")}
-                onClick={() => navigate("/experience")}
+                onClick={() => handleNav("/experience")}
                 size="md"
               >
                 <IconClipboardText size={20} stroke={1.5} />
@@ -74,7 +83,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={checkActive("/projects")}
-                onClick={() => navigate("/projects")}
+                onClick={() => handleNav("/projects")}
                 size="md"
               >
                 <IconApiApp size={20} stroke={1.5} />
@@ -92,7 +101,7 @@ const AppSidebar = () => {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   isActive={checkActive("/blog")}
-                  onClick={() => navigate("/blog")}
+                  onClick={() => handleNav("/blog")}
                 >
                   <IconPencilMinus size={20} stroke={1.5} />
                   <span>Blog</span>
@@ -102,7 +111,7 @@ const AppSidebar = () => {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   isActive={checkActive("/open-source")}
-                  onClick={() => navigate("/open-source")}
+                  onClick={() => handleNav("/open-source")}
                 >
                   <IconSpy size={20} stroke={1.5} />
                   <span>Open Source</span>

@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
-      <header className="landing-section flex w-full flex-col justify-center gap-4 overflow-hidden border p-4 md:col-span-4 md:row-span-2 md:min-h-0 md:p-6">
+      <header className="landing-section flex w-full flex-col justify-center gap-4 overflow-hidden border px-4 py-8 md:col-span-4 md:row-span-2 md:min-h-0 md:p-6">
         <h1 className="w-full max-w-2xl font-semibold text-4xl">
           I&apos;m Emmanuel - A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="landing-section flex flex-col justify-center gap-4 border-y py-4 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6">
+      <section className="landing-section flex flex-col justify-center gap-4 border-y py-8 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6">
         <div className="flex flex-col gap-1 px-4 md:px-6">
           <h2 className="font-semibold text-xl">My Tech Stack</h2>
           <p className="text-muted-foreground text-xs">
@@ -129,7 +129,7 @@ export default function Home() {
       </section>
 
       <section className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0">
-        <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3 md:px-6">
+        <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-5 md:px-6 md:py-3">
           <h2 className="font-semibold text-xl">Experience &amp; Projects</h2>
           <p className="text-muted-foreground text-xs">
             Where I&apos;ve worked and what I&apos;ve built.
@@ -139,7 +139,7 @@ export default function Home() {
         <div className="grid auto-rows-auto grid-cols-1 border-t sm:grid-cols-2 md:min-h-0 md:flex-1 md:auto-rows-fr lg:grid-cols-3">
           {experience.map((item) => {
             const cellClass =
-              "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6";
+              "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-5 transition-colors duration-300 hover:bg-muted/30 md:px-6 md:py-3";
             const inner = (
               <>
                 <span className="truncate text-[0.65rem] text-muted-foreground uppercase tracking-wide">
