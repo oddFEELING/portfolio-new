@@ -143,33 +143,59 @@ export default function Experience() {
         </div>
       </header>
 
-      <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          About
-        </span>
-      </div>
-
-      <section className="border-b">
-        <div className="flex flex-col gap-6 px-4 py-8 md:gap-8 md:px-6 md:py-12">
-          <p className="max-w-3xl text-balance text-lg leading-relaxed md:text-xl">
-            Full-stack engineer with{" "}
-            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-              four years
-            </Highlighter>{" "}
-            building production applications end-to-end — including founding
-            engineering on a multi-product AI platform spanning chat
-            workspaces, autonomous agents, enterprise search, and{" "}
-            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-              50+ integrations
-            </Highlighter>
-            . Comfortable across React, TypeScript, NestJS and Node, owning
-            systems from architecture and API design through to frontend and
-            deployment. Quick to pick up new domains, tooling and stacks.
-          </p>
-          <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-            Currently &mdash; Founding AI/Software Engineer at Zenning AI
-          </p>
+      <section className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
+        <div className="md:order-1">
+          <div className="flex flex-col gap-6 px-4 py-8 md:gap-8 md:px-6 md:py-12">
+            <p className="text-balance text-lg leading-relaxed md:text-xl">
+              Full-stack engineer with{" "}
+              <Highlighter
+                action="underline"
+                color="#FF9800"
+                strokeWidth={2}
+              >
+                four years
+              </Highlighter>{" "}
+              building production applications end-to-end — including founding
+              engineering on a multi-product AI platform spanning chat
+              workspaces, autonomous agents, enterprise search, and{" "}
+              <Highlighter
+                action="underline"
+                color="#FF9800"
+                strokeWidth={2}
+              >
+                50+ integrations
+              </Highlighter>
+              . Comfortable across React, TypeScript, NestJS and Node, owning
+              systems from architecture and API design through to frontend and
+              deployment. Quick to pick up new domains, tooling and stacks.
+            </p>
+            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
+              Currently &mdash; Founding AI/Software Engineer at Zenning AI
+            </p>
+          </div>
         </div>
+
+        <aside className="relative overflow-hidden border-b md:order-2 md:border-b-0 md:border-l">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px)",
+            }}
+          />
+          <div className="relative z-10 flex h-full flex-col justify-center gap-4 px-4 py-8 md:px-6 md:py-12">
+            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
+              // About
+            </p>
+            <h2 className="font-semibold text-4xl leading-[0.95] tracking-tight md:text-5xl">
+              The short
+              <br />
+              version
+              <span className="text-[#FF9800]">.</span>
+            </h2>
+          </div>
+        </aside>
       </section>
 
       <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
