@@ -390,13 +390,14 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     top: "50%",
     width: 12,
     height: 12,
-    border: "3px solid #fff",
+    border: "3px solid var(--muted-foreground)",
+    opacity: 0.7,
     willChange: "transform",
   };
 
   return (
     <div
-      className="pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference"
+      className="pointer-events-none fixed top-0 left-0 z-[9999]"
       ref={cursorRef}
       style={{ width: 0, height: 0, transform: "translate(-50%,-50%)" }}
     >
@@ -408,7 +409,8 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
           top: "50%",
           width: 4,
           height: 4,
-          background: "#fff",
+          background: "var(--muted-foreground)",
+          opacity: 0.7,
           borderRadius: "50%",
           transform: "translate(-50%,-50%)",
           willChange: "transform",
