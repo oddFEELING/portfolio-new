@@ -4,7 +4,7 @@ import PixelBlast from "@/components/ui/pixel-blast";
 import { useSidebar } from "@/components/ui/sidebar";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
-import { IconArrowUpRight, IconLayout } from "@tabler/icons-react";
+import { IconArrowUpRight } from "@tabler/icons-react";
 import type { Route } from "./+types/projects";
 
 export function meta(_: Route.MetaArgs) {
@@ -68,7 +68,8 @@ export default function Projects() {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
+    <div className="flex h-full w-full overflow-hidden">
+      <div className="grid h-full min-w-0 flex-1 grid-cols-6 grid-rows-5 overflow-hidden">
       <header className="landing-section relative col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-2 overflow-hidden border p-4 md:p-6">
         <PixelBlast
           className="absolute inset-0"
@@ -78,14 +79,6 @@ export default function Projects() {
           pixelSize={4}
           speed={0.4}
         />
-        <button
-          aria-label="Toggle sidebar"
-          className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/40 text-muted-foreground backdrop-blur-sm transition-colors hover:bg-background/70 hover:text-foreground"
-          onClick={toggleSidebar}
-          type="button"
-        >
-          <IconLayout size={16} stroke={1.5} />
-        </button>
         <div className="relative z-10 flex flex-col gap-2">
           <h1 className="font-semibold text-3xl">Projects</h1>
           <p className="text-muted-foreground text-sm">
@@ -115,6 +108,18 @@ export default function Projects() {
           </span>
         </div>
       </aside>
+      </div>
+
+      <button
+        aria-label="Toggle sidebar"
+        className="flex shrink-0 items-center justify-center border-l px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground"
+        onClick={toggleSidebar}
+        type="button"
+      >
+        <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
+          Toggle Sidebar
+        </span>
+      </button>
     </div>
   );
 }
