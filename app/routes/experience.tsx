@@ -1,7 +1,7 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
 import TargetCursor from "@/components/ui/target-cursor";
 import { useSidebar } from "@/components/ui/sidebar";
-import { IconDownload, IconMail } from "@tabler/icons-react";
+import { IconDownload, IconLayout, IconMail } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/experience";
 
@@ -97,23 +97,21 @@ export default function Experience() {
         onPointerEnter={() => setCursorActive(true)}
         onPointerLeave={() => setCursorActive(false)}
       >
-        <div className="flex items-baseline gap-3 px-4 py-3 md:px-6">
+        <div className="px-4 py-3 md:px-6">
+          <h1 className="font-semibold text-2xl">Experience</h1>
+          <p className="text-muted-foreground text-sm">
+            The roles I&apos;ve held and where I studied.
+          </p>
+        </div>
+        <div className="grid grid-cols-[auto_1fr_1fr]">
           <button
             aria-label="Toggle sidebar"
-            className="border border-border border-b-2 bg-muted/40 px-2 py-0.5 font-mono text-muted-foreground text-xs leading-none transition-all hover:bg-muted/60 hover:text-foreground active:translate-y-px active:border-b"
+            className="cursor-target flex items-center justify-center border-l px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground md:px-6"
             onClick={toggleSidebar}
             type="button"
           >
-            ≡
+            <IconLayout className="shrink-0" size={22} stroke={1.5} />
           </button>
-          <div>
-            <h1 className="font-semibold text-2xl">Experience</h1>
-            <p className="text-muted-foreground text-sm">
-              The roles I&apos;ve held and where I studied.
-            </p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2">
           <a
             className="cursor-target flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
             download="Emmanuel_Alawode_Resume.pdf"
