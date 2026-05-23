@@ -40,19 +40,6 @@ function OpenSourceRow({
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
     >
-      {hovered && (
-        <DotGrid
-          activeColor="#FF9800"
-          baseColor={dotBaseColor}
-          className="pointer-events-none absolute inset-0"
-          dotSize={3}
-          gap={18}
-          proximity={120}
-          shockRadius={180}
-          shockStrength={4}
-        />
-      )}
-
       <div className="relative z-10 flex items-center justify-center overflow-hidden border-r p-4 md:col-span-1 md:min-h-0 md:p-4">
         <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none md:text-5xl">
           {String(index + 1).padStart(2, "0")}
@@ -70,23 +57,37 @@ function OpenSourceRow({
         </div>
       </div>
 
-      <div className="relative z-10 col-span-2 flex flex-col justify-center gap-3 overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
-        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
-          {project.summary}
-        </p>
-        <div className="flex flex-wrap gap-4">
-          {project.links.map((link) => (
-            <a
-              className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
-              href={link.href}
-              key={link.href}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {link.label}
-              <IconArrowUpRight size={14} stroke={1.5} />
-            </a>
-          ))}
+      <div className="relative z-10 col-span-2 flex flex-col justify-center overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
+        {hovered && (
+          <DotGrid
+            activeColor="#FF9800"
+            baseColor={dotBaseColor}
+            className="pointer-events-none absolute inset-0"
+            dotSize={3}
+            gap={18}
+            proximity={120}
+            shockRadius={180}
+            shockStrength={4}
+          />
+        )}
+        <div className="relative z-10 flex flex-col gap-3">
+          <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+            {project.summary}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {project.links.map((link) => (
+              <a
+                className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
+                href={link.href}
+                key={link.href}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {link.label}
+                <IconArrowUpRight size={14} stroke={1.5} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </article>
