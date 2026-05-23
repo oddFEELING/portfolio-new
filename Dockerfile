@@ -14,10 +14,10 @@ COPY --from=development-dependencies-env /app/node_modules ./node_modules
 COPY . .
 RUN bun run build
 
-FROM oven/bun:1-alpine
+FROM node:20-alpine
 WORKDIR /app
 COPY package.json bun.lock ./
 COPY --from=production-dependencies-env /app/node_modules ./node_modules
 COPY --from=build-env /app/build ./build
 EXPOSE 3000
-CMD ["bun", "run", "start"]
+CMD ["node", "./node_modules/.bin/react-router-serve", "./build/server/index.js"]
