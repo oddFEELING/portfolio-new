@@ -1,4 +1,5 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
+import TargetCursor from "@/components/ui/target-cursor";
 import { IconDownload, IconMail } from "@tabler/icons-react";
 import type { Route } from "./+types/experience";
 
@@ -85,6 +86,7 @@ function EducationBlock({ item }: { item: EducationItem }) {
 export default function Experience() {
   return (
     <div className="h-full overflow-y-auto">
+      <TargetCursor />
       <header className="grid grid-cols-2 border-b">
         <div className="px-4 py-3 md:px-6">
           <h1 className="font-semibold text-2xl">Experience</h1>
@@ -94,7 +96,7 @@ export default function Experience() {
         </div>
         <div className="grid grid-cols-2">
           <a
-            className="flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            className="cursor-target flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
             download="Emmanuel_Alawode_Resume.pdf"
             href={resumeUrl}
           >
@@ -106,7 +108,7 @@ export default function Experience() {
             <span className="font-semibold text-sm">Download Résumé</span>
           </a>
           <a
-            className="flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
+            className="cursor-target flex items-center gap-3 border-l px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6"
             href="mailto:alawodeemmanuel2@gmail.com"
           >
             <IconMail
