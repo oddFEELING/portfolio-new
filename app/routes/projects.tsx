@@ -70,23 +70,25 @@ export default function Projects() {
   return (
     <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
       <header className="landing-section relative col-span-2 row-span-2 flex min-h-0 overflow-hidden border">
-        <PixelBlast
-          className="absolute inset-0"
-          color="#FF9800"
-          edgeFade={0.4}
-          patternScale={2.5}
-          pixelSize={4}
-          speed={0.4}
-        />
-        <div className="relative z-10 flex flex-1 flex-col justify-center gap-2 p-4 md:p-6">
-          <h1 className="font-semibold text-3xl">Projects</h1>
-          <p className="text-muted-foreground text-sm">
-            A few things I&apos;ve built — the rest lives in the work itself.
-          </p>
+        <div className="relative flex flex-1 flex-col justify-center gap-2 overflow-hidden p-4 md:p-6">
+          <PixelBlast
+            className="absolute inset-0"
+            color="#FF9800"
+            edgeFade={0.4}
+            patternScale={2.5}
+            pixelSize={4}
+            speed={0.4}
+          />
+          <div className="relative z-10 flex flex-col gap-2">
+            <h1 className="font-semibold text-3xl">Projects</h1>
+            <p className="text-muted-foreground text-sm">
+              A few things I&apos;ve built — the rest lives in the work itself.
+            </p>
+          </div>
         </div>
         <button
           aria-label="Toggle sidebar"
-          className="relative z-20 flex shrink-0 items-center justify-center border-l px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground"
+          className="flex shrink-0 items-center justify-center border-l px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground"
           onClick={toggleSidebar}
           type="button"
         >
