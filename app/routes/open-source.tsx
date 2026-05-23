@@ -1,3 +1,4 @@
+import { useTheme } from "@/components/providers/theme.provider";
 import DotGrid from "@/components/ui/dot-grid";
 import { useSidebar } from "@/components/ui/sidebar";
 import type { OpenSourceProject } from "@/data/open-source";
@@ -25,6 +26,9 @@ function OpenSourceRow({
   index: number;
 }) {
   const [hovered, setHovered] = useState(false);
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+  const dotBaseColor = isLight ? "#D4D4D8" : "#71717A";
   const isOwner = project.role === "Owner";
   const roleClass = isOwner
     ? "border-[#FF9800] text-[#FF9800]"
@@ -39,7 +43,7 @@ function OpenSourceRow({
       {hovered && (
         <DotGrid
           activeColor="#FF9800"
-          baseColor="#71717A"
+          baseColor={dotBaseColor}
           className="pointer-events-none absolute inset-0"
           dotSize={3}
           gap={18}
