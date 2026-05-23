@@ -28,7 +28,7 @@ function ProjectTile({
 }) {
   return (
     <article
-      className={`landing-section flex min-h-0 flex-col overflow-hidden border p-4 md:p-6 ${className}`}
+      className={`landing-section flex flex-col border p-4 md:min-h-0 md:overflow-hidden md:p-6 ${className}`}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className={featured ? "font-semibold text-2xl" : "font-semibold text-xl"}>
@@ -68,8 +68,8 @@ export default function Projects() {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
-      <header className="landing-section relative col-span-2 row-span-2 flex min-h-0 overflow-hidden border">
+    <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
+      <header className="landing-section relative flex overflow-hidden border md:col-span-2 md:row-span-2 md:min-h-0">
         <div className="relative flex flex-1 flex-col justify-center gap-2 overflow-hidden p-4 md:p-6">
           <PixelBlast
             className="absolute inset-0"
@@ -99,13 +99,17 @@ export default function Projects() {
         </button>
       </header>
 
-      <ProjectTile className="col-span-4 row-span-3" featured project={nubia} />
+      <ProjectTile
+        className="md:col-span-4 md:row-span-3"
+        featured
+        project={nubia}
+      />
 
-      <ProjectTile className="col-span-2 row-span-3" project={goloka} />
+      <ProjectTile className="md:col-span-2 md:row-span-3" project={goloka} />
 
-      <ProjectTile className="col-span-2 row-span-2" project={faa} />
+      <ProjectTile className="md:col-span-2 md:row-span-2" project={faa} />
 
-      <aside className="landing-section relative col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-3 overflow-hidden border p-4 md:p-6">
+      <aside className="landing-section relative flex flex-col justify-center gap-3 overflow-hidden border p-4 md:col-span-2 md:row-span-2 md:min-h-0 md:p-6">
         <Noise patternAlpha={18} patternRefreshInterval={3} />
         <div className="relative z-10 flex flex-col gap-3">
           <p className="font-medium text-lg leading-snug">
