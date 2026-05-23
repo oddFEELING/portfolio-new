@@ -1,5 +1,6 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
 import TargetCursor from "@/components/ui/target-cursor";
+import { useSidebar } from "@/components/ui/sidebar";
 import { IconDownload, IconMail } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/experience";
@@ -86,6 +87,7 @@ function EducationBlock({ item }: { item: EducationItem }) {
 
 export default function Experience() {
   const [cursorActive, setCursorActive] = useState(false);
+  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="h-full overflow-y-auto">
@@ -95,11 +97,21 @@ export default function Experience() {
         onPointerEnter={() => setCursorActive(true)}
         onPointerLeave={() => setCursorActive(false)}
       >
-        <div className="px-4 py-3 md:px-6">
-          <h1 className="font-semibold text-2xl">Experience</h1>
-          <p className="text-muted-foreground text-sm">
-            The roles I&apos;ve held and where I studied.
-          </p>
+        <div className="flex items-baseline gap-3 px-4 py-3 md:px-6">
+          <button
+            aria-label="Toggle sidebar"
+            className="border border-border border-b-2 bg-muted/40 px-2 py-0.5 font-mono text-muted-foreground text-xs leading-none transition-all hover:bg-muted/60 hover:text-foreground active:translate-y-px active:border-b"
+            onClick={toggleSidebar}
+            type="button"
+          >
+            ≡
+          </button>
+          <div>
+            <h1 className="font-semibold text-2xl">Experience</h1>
+            <p className="text-muted-foreground text-sm">
+              The roles I&apos;ve held and where I studied.
+            </p>
+          </div>
         </div>
         <div className="grid grid-cols-2">
           <a

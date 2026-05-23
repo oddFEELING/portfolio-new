@@ -1,4 +1,5 @@
 import DotGrid from "@/components/ui/dot-grid";
+import { useSidebar } from "@/components/ui/sidebar";
 import type { OpenSourceProject } from "@/data/open-source";
 import { openSourceProjects } from "@/data/open-source";
 import { IconArrowUpRight } from "@tabler/icons-react";
@@ -87,6 +88,7 @@ function OpenSourceRow({
 }
 
 export default function OpenSource() {
+  const { toggleSidebar } = useSidebar();
   const owned = openSourceProjects.filter((p) => p.role === "Owner").length;
   const contributing = openSourceProjects.filter(
     (p) => p.role === "Contributor"
@@ -101,10 +103,20 @@ export default function OpenSource() {
             Things I maintain and help build in the open.
           </p>
         </div>
-        <span className="hidden font-mono text-muted-foreground text-xs uppercase tracking-wider sm:inline">
-          {openSourceProjects.length} projects · {owned} owned ·{" "}
-          {contributing} contributing
-        </span>
+        <div className="flex items-center gap-6">
+          <span className="hidden font-mono text-muted-foreground text-xs uppercase tracking-wider sm:inline">
+            {openSourceProjects.length} projects · {owned} owned ·{" "}
+            {contributing} contributing
+          </span>
+          <button
+            aria-label="Toggle sidebar"
+            className="font-mono text-muted-foreground text-xs uppercase tracking-wider transition-colors hover:text-foreground"
+            onClick={toggleSidebar}
+            type="button"
+          >
+            [ Nav ]
+          </button>
+        </div>
       </header>
 
       {openSourceProjects.map((project, index) => (

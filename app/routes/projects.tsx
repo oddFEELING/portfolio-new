@@ -1,9 +1,10 @@
 import { Highlighter } from "@/components/ui/highlighter";
 import Noise from "@/components/ui/noise";
 import PixelBlast from "@/components/ui/pixel-blast";
+import { useSidebar } from "@/components/ui/sidebar";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
-import { IconArrowUpRight } from "@tabler/icons-react";
+import { IconArrowUpRight, IconLayout } from "@tabler/icons-react";
 import type { Route } from "./+types/projects";
 
 export function meta(_: Route.MetaArgs) {
@@ -64,6 +65,7 @@ function ProjectTile({
 
 export default function Projects() {
   const [nubia, faa, goloka] = projects;
+  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
@@ -76,6 +78,14 @@ export default function Projects() {
           pixelSize={4}
           speed={0.4}
         />
+        <button
+          aria-label="Toggle sidebar"
+          className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/40 text-muted-foreground backdrop-blur-sm transition-colors hover:bg-background/70 hover:text-foreground"
+          onClick={toggleSidebar}
+          type="button"
+        >
+          <IconLayout size={16} stroke={1.5} />
+        </button>
         <div className="relative z-10 flex flex-col gap-2">
           <h1 className="font-semibold text-3xl">Projects</h1>
           <p className="text-muted-foreground text-sm">
