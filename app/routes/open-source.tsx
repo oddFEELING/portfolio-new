@@ -28,15 +28,15 @@ function OpenSourceRow({
   const [hovered, setHovered] = useState(false);
   const { theme } = useTheme();
   const isLight = theme === "light";
-  const dotBaseColor = isLight ? "#A1A1AA" : "#71717A";
+  const dotBaseColor = isLight ? "#D4D4D8" : "#71717A";
   const isOwner = project.role === "Owner";
-  const roleClass = isOwner
-    ? "border-[#FF9800] text-[#FF9800]"
-    : "border-border text-muted-foreground";
+  const roleStripClass = isOwner
+    ? "bg-[#FF9800]/10 text-[#FF9800] border-[#FF9800]/30"
+    : "bg-muted/30 text-muted-foreground border-border";
 
   return (
     <article
-      className="relative grid grid-cols-[auto_1fr] overflow-hidden border-b bg-background transition-colors duration-300 md:min-h-0 md:grid-cols-12"
+      className="relative flex flex-col overflow-hidden border-b bg-background transition-colors duration-300 md:min-h-0"
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
     >
@@ -53,39 +53,42 @@ function OpenSourceRow({
         />
       )}
 
-      <div className="relative z-10 flex items-center justify-center overflow-hidden border-r p-4 md:col-span-1 md:min-h-0 md:p-4">
-        <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none md:text-5xl">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-      </div>
-
-      <div className="relative z-10 flex flex-col justify-center gap-3 overflow-hidden p-4 md:col-span-4 md:min-h-0 md:border-r md:p-6">
-        <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
-        <span
-          className={`w-fit border px-2 py-0.5 text-xs uppercase tracking-wide ${roleClass}`}
-        >
-          {project.role}
-        </span>
-      </div>
-
-      <div className="relative z-10 col-span-2 flex flex-col justify-center gap-3 overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
-        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
-          {project.summary}
-        </p>
-        <div className="flex flex-wrap gap-4">
-          {project.links.map((link) => (
-            <a
-              className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
-              href={link.href}
-              key={link.href}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {link.label}
-              <IconArrowUpRight size={14} stroke={1.5} />
-            </a>
-          ))}
+      <div className="relative z-10 grid flex-1 grid-cols-[auto_1fr] overflow-hidden md:grid-cols-12">
+        <div className="flex items-center justify-center overflow-hidden border-r p-4 md:col-span-1 md:min-h-0 md:p-4">
+          <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none md:text-5xl">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
+
+        <div className="flex flex-col justify-center overflow-hidden p-4 md:col-span-4 md:min-h-0 md:border-r md:p-6">
+          <h2 className="truncate font-semibold text-2xl">{project.name}</h2>
+        </div>
+
+        <div className="col-span-2 flex flex-col justify-center gap-3 overflow-hidden border-t p-4 md:col-span-7 md:min-h-0 md:border-t-0 md:p-6">
+          <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+            {project.summary}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {project.links.map((link) => (
+              <a
+                className="inline-flex items-center gap-1 text-muted-foreground text-sm underline underline-offset-4 transition-colors hover:text-foreground"
+                href={link.href}
+                key={link.href}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {link.label}
+                <IconArrowUpRight size={14} stroke={1.5} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`relative z-10 w-full border-t px-4 py-1.5 font-mono text-xs uppercase tracking-[0.3em] md:px-6 ${roleStripClass}`}
+      >
+        {project.role}
       </div>
     </article>
   );
