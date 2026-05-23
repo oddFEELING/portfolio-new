@@ -74,9 +74,10 @@ export default function Projects() {
           <PixelBlast
             className="absolute inset-0"
             color="#FF9800"
-            edgeFade={0.4}
-            patternScale={2.5}
-            pixelSize={4}
+            edgeFade={0.6}
+            patternDensity={0.5}
+            patternScale={2}
+            pixelSize={8}
             speed={0.4}
           />
           <div className="relative z-10 flex flex-col gap-2">
