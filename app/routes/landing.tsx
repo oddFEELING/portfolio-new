@@ -26,8 +26,8 @@ export default function Home() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="grid h-full w-full grid-cols-6 grid-rows-5 overflow-hidden">
-      <header className="landing-section col-span-4 row-span-2 flex min-h-0 w-full flex-col justify-center gap-4 overflow-hidden border p-4 md:p-6">
+    <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
+      <header className="landing-section flex w-full flex-col justify-center gap-4 overflow-hidden border p-4 md:col-span-4 md:row-span-2 md:min-h-0 md:p-6">
         <h1 className="w-full max-w-2xl font-semibold text-4xl">
           I&apos;m Emmanuel - A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
@@ -40,7 +40,7 @@ export default function Home() {
           products for companies in a myraid of domains.
         </p>
 
-        <div className="mt-2 flex w-max items-center space-x-3">
+        <div className="mt-2 flex flex-wrap items-center gap-3">
           <span
             className="cursor-pointer rounded-md border bg-muted/30 p-2 text-muted-foreground hover:border-muted-foreground hover:text-primary dark:bg-muted/40"
             onClick={toggleSidebar}
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="landing-section col-span-2 row-span-2 flex min-h-0 flex-col justify-center gap-4 border-y py-4 md:py-6">
+      <section className="landing-section flex flex-col justify-center gap-4 border-y py-4 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6">
         <div className="flex flex-col gap-1 px-4 md:px-6">
           <h2 className="font-semibold text-xl">My Tech Stack</h2>
           <p className="text-muted-foreground text-xs">
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section col-span-6 row-span-1 flex items-center overflow-hidden border">
+      <section className="landing-section flex items-center overflow-hidden border md:col-span-6 md:row-span-1">
         <div className="marquee w-full overflow-hidden">
           <div className="marquee-track flex w-max items-center">
             {[0, 1].map((copy) => (
@@ -128,15 +128,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section col-span-6 row-span-2 flex min-h-0 flex-col border">
-        <div className="flex shrink-0 items-baseline justify-between gap-2 px-4 py-3 md:px-6">
+      <section className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0">
+        <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3 md:px-6">
           <h2 className="font-semibold text-xl">Experience &amp; Projects</h2>
           <p className="text-muted-foreground text-xs">
             Where I&apos;ve worked and what I&apos;ve built.
           </p>
         </div>
 
-        <div className="grid min-h-0 flex-1 auto-rows-fr grid-cols-1 border-t sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid auto-rows-auto grid-cols-1 border-t sm:grid-cols-2 md:min-h-0 md:flex-1 md:auto-rows-fr lg:grid-cols-3">
           {experience.map((item) => {
             const cellClass =
               "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-3 transition-colors duration-300 hover:bg-muted/30 md:px-6";
