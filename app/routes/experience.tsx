@@ -1,5 +1,6 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
 import { Highlighter } from "@/components/ui/highlighter";
+import { ShutterText } from "@/components/ui/shutter-text";
 import { useSidebar } from "@/components/ui/sidebar";
 import TargetCursor from "@/components/ui/target-cursor";
 import { IconDownload, IconLayout, IconMail } from "@tabler/icons-react";
@@ -188,11 +189,17 @@ export default function Experience() {
             <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
               // About
             </p>
-            <h2 className="font-semibold text-4xl leading-[0.95] tracking-tight md:text-5xl">
-              The short
-              <br />
-              version
-              <span className="text-[#FF9800]">.</span>
+            <h2 className="flex flex-col items-start gap-1 text-4xl leading-[0.95] tracking-tight md:text-5xl">
+              <ShutterText
+                className="justify-start!"
+                text="The short"
+                trigger="auto"
+              />
+              <ShutterText
+                className="justify-start!"
+                text="version."
+                trigger="auto"
+              />
             </h2>
           </div>
         </aside>
