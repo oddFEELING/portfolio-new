@@ -1,6 +1,7 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
-import TargetCursor from "@/components/ui/target-cursor";
+import { Highlighter } from "@/components/ui/highlighter";
 import { useSidebar } from "@/components/ui/sidebar";
+import TargetCursor from "@/components/ui/target-cursor";
 import { IconDownload, IconLayout, IconMail } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/experience";
@@ -141,6 +142,41 @@ export default function Experience() {
           </a>
         </div>
       </header>
+
+      <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          About
+        </span>
+      </div>
+
+      <section className="border-b">
+        <div className="flex flex-col gap-6 px-4 py-8 md:gap-8 md:px-6 md:py-12">
+          <p className="max-w-3xl text-balance text-lg leading-relaxed md:text-xl">
+            Full-stack engineer with{" "}
+            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+              four years
+            </Highlighter>{" "}
+            building production applications end-to-end — including founding
+            engineering on a multi-product AI platform spanning chat
+            workspaces, autonomous agents, enterprise search, and{" "}
+            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+              50+ integrations
+            </Highlighter>
+            . Comfortable across React, TypeScript, NestJS and Node, owning
+            systems from architecture and API design through to frontend and
+            deployment. Quick to pick up new domains, tooling and stacks.
+          </p>
+          <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
+            Currently &mdash; Founding AI/Software Engineer at Zenning AI
+          </p>
+        </div>
+      </section>
+
+      <div className="border-b bg-muted/30 px-4 py-2 md:px-6">
+        <span className="text-muted-foreground text-xs uppercase tracking-wide">
+          Work Experience
+        </span>
+      </div>
 
       <section>
         {workExperience.map((item) => (
