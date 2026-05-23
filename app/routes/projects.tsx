@@ -94,7 +94,7 @@ export default function Projects() {
           type="button"
         >
           <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
-            Toggle Sidebar
+            Sidebar
           </span>
         </button>
       </header>
