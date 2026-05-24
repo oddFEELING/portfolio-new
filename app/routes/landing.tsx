@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { Link } from "react-router";
 import { useTheme } from "@/components/providers/theme.provider";
 import { Highlighter } from "@/components/ui/highlighter";
@@ -13,6 +14,8 @@ import {
   type TablerIcon,
 } from "@tabler/icons-react";
 import type { Route } from "./+types/landing";
+
+const EASE_OUT_QUART = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -137,18 +140,40 @@ export default function Home() {
         </div>
 
         <div className="grid auto-rows-auto grid-cols-1 border-t sm:grid-cols-2 md:min-h-0 md:flex-1 md:auto-rows-fr lg:grid-cols-3">
-          {experience.map((item) => {
+          {experience.map((item, index) => {
             const cellClass =
               "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-7 transition-colors duration-300 hover:bg-muted/30 md:px-6 md:py-3";
+            const baseDelay = 0.15 + index * 0.07;
+            const fadeUp = (offset: number) => ({
+              initial: { opacity: 0, y: 6 },
+              animate: { opacity: 1, y: 0 },
+              transition: {
+                duration: 0.35,
+                delay: baseDelay + offset,
+                ease: EASE_OUT_QUART,
+              },
+            });
+
             const inner = (
               <>
-                <span className="truncate text-[0.65rem] text-muted-foreground uppercase tracking-wide">
+                <motion.span
+                  className="truncate text-[0.65rem] text-muted-foreground uppercase tracking-wide"
+                  {...fadeUp(0)}
+                >
                   {item.kind} — {item.period}
-                </span>
-                <h3 className="truncate font-medium text-sm">{item.title}</h3>
-                <p className="line-clamp-2 text-muted-foreground text-xs leading-snug">
+                </motion.span>
+                <motion.h3
+                  className="truncate font-medium text-sm"
+                  {...fadeUp(0.06)}
+                >
+                  {item.title}
+                </motion.h3>
+                <motion.p
+                  className="line-clamp-2 text-muted-foreground text-xs leading-snug"
+                  {...fadeUp(0.12)}
+                >
                   {item.description}
-                </p>
+                </motion.p>
               </>
             );
 

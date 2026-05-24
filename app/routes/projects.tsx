@@ -1,6 +1,7 @@
 import { Highlighter } from "@/components/ui/highlighter";
 import Noise from "@/components/ui/noise";
 import PixelBlast from "@/components/ui/pixel-blast";
+import { ShutterText } from "@/components/ui/shutter-text";
 import { useSidebar } from "@/components/ui/sidebar";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
@@ -87,8 +88,27 @@ export default function Projects() {
             pixelSize={5}
             speed={0.4}
           />
-          <div className="relative z-10 flex flex-col gap-2">
-            <h1 className="font-semibold text-3xl">Projects</h1>
+          <div className="relative z-10 flex flex-col gap-4">
+            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
+              // PROJECTS
+            </p>
+            <h1 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-5xl">
+              <ShutterText
+                className="justify-start!"
+                text="Receipts"
+                trigger="auto"
+              />
+              <span className="flex items-baseline">
+                <ShutterText
+                  className="justify-start!"
+                  text="attached"
+                  trigger="auto"
+                />
+                <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">
+                  .
+                </span>
+              </span>
+            </h1>
             <p className="text-muted-foreground text-sm">
               A few things I&apos;ve built — the rest lives in the work itself.
             </p>

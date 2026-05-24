@@ -13,8 +13,18 @@ import {
   IconMail,
   type TablerIcon,
 } from "@tabler/icons-react";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/contact";
+
+const EASE_OUT_QUART = [0.22, 1, 0.36, 1] as [number, number, number, number];
+const BACK_OUT = [0.34, 1.56, 0.64, 1] as [number, number, number, number];
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.35, delay, ease: EASE_OUT_QUART },
+});
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -89,8 +99,15 @@ function useLondonTime() {
   });
 }
 
-function ChannelRow({ channel }: { channel: Channel }) {
+function ChannelRow({
+  channel,
+  index,
+}: {
+  channel: Channel;
+  index: number;
+}) {
   const [copied, setCopied] = useState(false);
+  const rowDelay = 0.62 + index * 0.12;
 
   const handleCopy = async () => {
     const text = channel.href.startsWith("mailto:")
@@ -114,12 +131,30 @@ function ChannelRow({ channel }: { channel: Channel }) {
         className="pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 bg-[#FF9800] transition-transform duration-300 group-hover:scale-y-100"
       />
       <div className="flex items-center justify-center border-r px-4 md:px-6">
-        <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none transition-colors duration-300 group-hover:text-[#FF9800] md:text-5xl">
+        <motion.span
+          animate={{ opacity: 1, scale: 1 }}
+          className="inline-block font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none transition-colors duration-300 group-hover:text-[#FF9800] md:text-5xl"
+          initial={{ opacity: 0, scale: 0.6 }}
+          transition={{
+            duration: 0.45,
+            delay: rowDelay,
+            ease: BACK_OUT,
+          }}
+        >
           {channel.callsign}
-        </span>
+        </motion.span>
       </div>
 
-      <div className="flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-6 md:py-6">
+      <motion.div
+        animate={{ opacity: 1 }}
+        className="flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-6 md:py-6"
+        initial={{ opacity: 0 }}
+        transition={{
+          duration: 0.35,
+          delay: rowDelay + 0.18,
+          ease: EASE_OUT_QUART,
+        }}
+      >
         <div className="flex items-center gap-2">
           <channel.Icon
             className="shrink-0 text-muted-foreground transition-colors duration-300 group-hover:text-[#FF9800]"
@@ -137,9 +172,18 @@ function ChannelRow({ channel }: { channel: Channel }) {
         <p className="truncate font-medium text-base md:text-lg">
           {channel.value}
         </p>
-      </div>
+      </motion.div>
 
-      <div className="col-span-2 flex items-stretch border-t md:col-span-1 md:border-t-0 md:border-l">
+      <motion.div
+        animate={{ opacity: 1 }}
+        className="col-span-2 flex items-stretch border-t md:col-span-1 md:border-t-0 md:border-l"
+        initial={{ opacity: 0 }}
+        transition={{
+          duration: 0.35,
+          delay: rowDelay + 0.32,
+          ease: EASE_OUT_QUART,
+        }}
+      >
         <button
           aria-label={`Copy ${channel.label}`}
           className="flex flex-1 items-center justify-center gap-2 px-4 py-3 text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground md:flex-none md:px-5 md:py-0"
@@ -177,7 +221,7 @@ function ChannelRow({ channel }: { channel: Channel }) {
           </span>
           <IconArrowUpRight size={16} stroke={1.5} />
         </a>
-      </div>
+      </motion.div>
     </article>
   );
 }
@@ -209,9 +253,12 @@ export default function Contact() {
         {/* ~ ============= header ============= ~ */}
         <header className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
           <div className="flex flex-col gap-4 px-4 py-10 md:px-6 md:py-12">
-            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
+            <motion.p
+              className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]"
+              {...fadeUp(0.1)}
+            >
               // 04 — OPEN_CHANNEL
-            </p>
+            </motion.p>
             <h1 className="font-semibold text-5xl leading-[0.95] tracking-tight md:text-7xl">
               Open{" "}
               <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
@@ -219,10 +266,13 @@ export default function Contact() {
               </Highlighter>
               <span className="text-[#FF9800]">.</span>
             </h1>
-            <p className="max-w-md text-muted-foreground text-sm leading-relaxed md:text-base">
+            <motion.p
+              className="max-w-md text-muted-foreground text-sm leading-relaxed md:text-base"
+              {...fadeUp(0.28)}
+            >
               I read everything that lands here. Pick the frequency that suits
               you; pings, threads, cold notes, all welcome.
-            </p>
+            </motion.p>
           </div>
 
           <aside className="relative overflow-hidden border-t md:border-t-0 md:border-l">
@@ -235,7 +285,16 @@ export default function Contact() {
               }}
             />
             <dl className="relative z-10 flex h-full flex-col">
-              <div className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6">
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6"
+                initial={{ opacity: 0 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.22,
+                  ease: EASE_OUT_QUART,
+                }}
+              >
                 <dt className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
                   Status
                 </dt>
@@ -246,31 +305,58 @@ export default function Contact() {
                   </span>
                   Online
                 </dd>
-              </div>
-              <div className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6">
+              </motion.div>
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6"
+                initial={{ opacity: 0 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.28,
+                  ease: EASE_OUT_QUART,
+                }}
+              >
                 <dt className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
                   Location
                 </dt>
                 <dd className="font-mono text-xs uppercase tracking-[0.3em]">
                   London · UK
                 </dd>
-              </div>
-              <div className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6">
+              </motion.div>
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6"
+                initial={{ opacity: 0 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.34,
+                  ease: EASE_OUT_QUART,
+                }}
+              >
                 <dt className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
                   Local
                 </dt>
                 <dd className="font-mono text-xs uppercase tabular-nums tracking-[0.3em]">
                   {londonTime} GMT
                 </dd>
-              </div>
-              <div className="flex flex-1 items-center justify-between gap-4 px-4 py-3 md:px-6">
+              </motion.div>
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="flex flex-1 items-center justify-between gap-4 px-4 py-3 md:px-6"
+                initial={{ opacity: 0 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.4,
+                  ease: EASE_OUT_QUART,
+                }}
+              >
                 <dt className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
                   Reply
                 </dt>
                 <dd className="font-mono text-xs uppercase tracking-[0.3em]">
                   Within 24h
                 </dd>
-              </div>
+              </motion.div>
             </dl>
           </aside>
         </header>
@@ -282,12 +368,22 @@ export default function Contact() {
           href={resumeUrl}
         >
           <div className="flex items-center justify-center border-r px-4 md:px-6">
-            <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none transition-colors duration-300 group-hover/dl:text-[#FF9800] md:text-5xl">
+            <motion.span
+              animate={{ opacity: 1, scale: 1 }}
+              className="inline-block font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none transition-colors duration-300 group-hover/dl:text-[#FF9800] md:text-5xl"
+              initial={{ opacity: 0, scale: 0.6 }}
+              transition={{ duration: 0.45, delay: 0.5, ease: BACK_OUT }}
+            >
               00
-            </span>
+            </motion.span>
           </div>
 
-          <div className="flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-6 md:py-6">
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-6 md:py-6"
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.35, delay: 0.68, ease: EASE_OUT_QUART }}
+          >
             <div className="flex items-center gap-2">
               <IconDownload
                 className="shrink-0 text-muted-foreground transition-colors duration-300 group-hover/dl:text-[#FF9800]"
@@ -305,36 +401,55 @@ export default function Contact() {
             <p className="truncate font-medium text-base md:text-lg">
               Emmanuel_Alawode_Resume.pdf
             </p>
-          </div>
+          </motion.div>
 
-          <div className="col-span-2 flex items-stretch border-t md:col-span-1 md:border-t-0 md:border-l">
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="col-span-2 flex items-stretch border-t md:col-span-1 md:border-t-0 md:border-l"
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.35, delay: 0.82, ease: EASE_OUT_QUART }}
+          >
             <span className="flex flex-1 items-center justify-center gap-2 px-4 py-3 text-muted-foreground transition-colors group-hover/dl:bg-muted/40 group-hover/dl:text-foreground md:flex-none md:px-5 md:py-0">
               <span className="font-mono text-xs uppercase tracking-[0.3em]">
                 Download
               </span>
               <IconArrowDown size={16} stroke={1.5} />
             </span>
-          </div>
+          </motion.div>
         </a>
 
         {/* ~ ============= channel strip ============= ~ */}
-        <div className="flex items-center justify-between gap-4 border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
+        <motion.div
+          animate={{ opacity: 1 }}
+          className="flex items-center justify-between gap-4 border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2"
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.35, delay: 0.46, ease: EASE_OUT_QUART }}
+        >
           <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
             Channels
           </span>
           <span className="font-mono text-muted-foreground/60 text-xs uppercase tracking-[0.3em]">
             {channels.length} open
           </span>
-        </div>
+        </motion.div>
 
         <section className="scrollbar-thin md:min-h-0 md:flex-1 md:overflow-y-auto">
-          {channels.map((channel) => (
-            <ChannelRow channel={channel} key={channel.callsign} />
+          {channels.map((channel, index) => (
+            <ChannelRow
+              channel={channel}
+              index={index}
+              key={channel.callsign}
+            />
           ))}
         </section>
 
         {/* ~ ============= footer transmission ============= ~ */}
-        <footer className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3 md:px-6">
+        <motion.footer
+          animate={{ opacity: 1 }}
+          className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3 md:px-6"
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.35, delay: 0.85, ease: EASE_OUT_QUART }}
+        >
           <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
             ▒ TRANSMISSION OPEN · END OF FEED ▒
           </span>
@@ -344,7 +459,7 @@ export default function Contact() {
           >
             Send the first packet →
           </a>
-        </footer>
+        </motion.footer>
       </div>
     </div>
   );
