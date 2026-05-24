@@ -68,10 +68,6 @@ const AppSidebar = () => {
         isActive={checkActive(item.path)}
         onClick={() => handleNav(item.path)}
       >
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top scale-y-0 bg-[#FF9800] transition-transform duration-300 group-data-[active=true]/nav:scale-y-100"
-        />
         <item.Icon size={16} stroke={1.5} />
         <span>{item.label}</span>
         <span
