@@ -187,7 +187,7 @@ export default function Contact() {
   const londonTime = useLondonTime();
 
   return (
-    <div className="flex h-full overflow-hidden">
+    <div className="flex h-dvh overflow-hidden md:h-[calc(100dvh-1rem)]">
       {/* ~ =================================== ~ */}
       {/* -- Weirdly placed sidebar trigger -- */}
       {/* ~ =================================== ~ */}

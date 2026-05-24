@@ -11,7 +11,7 @@
 
 html,
 body {
-  @apply h-dvh overflow-hidden bg-background;
+  @apply bg-background;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
