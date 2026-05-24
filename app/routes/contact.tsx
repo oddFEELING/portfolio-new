@@ -187,7 +187,7 @@ export default function Contact() {
   const londonTime = useLondonTime();
 
   return (
-    <div className="flex h-dvh overflow-hidden md:h-[calc(100dvh-1rem)]">
+    <div className="flex md:h-[calc(100dvh-1rem)] md:overflow-hidden">
       {/* ~ =================================== ~ */}
       {/* -- Weirdly placed sidebar trigger -- */}
       {/* ~ =================================== ~ */}
@@ -205,7 +205,7 @@ export default function Contact() {
       {/* ~ =================================== ~ */}
       {/* -- Main column -- */}
       {/* ~ =================================== ~ */}
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col md:overflow-hidden">
         {/* ~ ============= header ============= ~ */}
         <header className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
           <div className="flex flex-col gap-4 px-4 py-10 md:px-6 md:py-12">
@@ -327,7 +327,7 @@ export default function Contact() {
           </span>
         </div>
 
-        <section className="scrollbar-thin min-h-0 flex-1 overflow-y-auto">
+        <section className="scrollbar-thin md:min-h-0 md:flex-1 md:overflow-y-auto">
           {channels.map((channel) => (
             <ChannelRow channel={channel} key={channel.callsign} />
           ))}
