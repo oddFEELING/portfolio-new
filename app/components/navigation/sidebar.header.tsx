@@ -39,7 +39,6 @@ export function NavHeader({ data }: NavHeaderProps) {
       <SidebarHeader className="border-border/40 border-b p-0">
         <button
           className="group/cmd flex w-full items-center justify-between gap-2 px-3 py-3 text-left transition-colors hover:bg-[#FF9800]/[0.05]"
-          onClick={() => setOpen(true)}
           type="button"
         >
           <span className="flex items-center gap-2 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-[0.3em] transition-colors group-hover/cmd:text-[#FF9800]">

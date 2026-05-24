@@ -36,8 +36,8 @@ export default function Home() {
           And I like to build stuff.
         </h1>
         <p className="w-full max-w-lg text-muted-foreground">
-          I am a seasoned full stack engineer with a focus on AI, shipping
-          products for companies in a myriad of domains.
+          Four years building AI products that don&apos;t quietly break in
+          production.
         </p>
 
         <div className="mt-2 flex flex-wrap items-center gap-3">
