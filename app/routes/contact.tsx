@@ -1,12 +1,15 @@
+import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
 import { Highlighter } from "@/components/ui/highlighter";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
+  IconArrowDown,
   IconArrowUpRight,
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
   IconCheck,
   IconCopy,
+  IconDownload,
   IconMail,
   type TablerIcon,
 } from "@tabler/icons-react";
@@ -202,7 +205,7 @@ export default function Contact() {
       {/* ~ =================================== ~ */}
       {/* -- Main column -- */}
       {/* ~ =================================== ~ */}
-      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         {/* ~ ============= header ============= ~ */}
         <header className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
           <div className="flex flex-col gap-4 px-4 py-10 md:px-6 md:py-12">
@@ -272,6 +275,48 @@ export default function Contact() {
           </aside>
         </header>
 
+        {/* ~ ============= résumé as channel 00 ============= ~ */}
+        <a
+          className="group/dl relative grid grid-cols-[auto_1fr] items-stretch border-b transition-colors duration-300 hover:bg-muted/30 md:grid-cols-[auto_1fr_auto]"
+          download="Emmanuel_Alawode_Resume.pdf"
+          href={resumeUrl}
+        >
+          <div className="flex items-center justify-center border-r px-4 md:px-6">
+            <span className="font-mono text-3xl text-muted-foreground/30 tabular-nums leading-none transition-colors duration-300 group-hover/dl:text-[#FF9800] md:text-5xl">
+              00
+            </span>
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-6 md:py-6">
+            <div className="flex items-center gap-2">
+              <IconDownload
+                className="shrink-0 text-muted-foreground transition-colors duration-300 group-hover/dl:text-[#FF9800]"
+                size={16}
+                stroke={1.5}
+              />
+              <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em] transition-colors duration-300 group-hover/dl:text-[#FF9800]">
+                Résumé
+              </span>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="truncate font-mono text-muted-foreground text-xs">
+                2026
+              </span>
+            </div>
+            <p className="truncate font-medium text-base md:text-lg">
+              Emmanuel_Alawode_Resume.pdf
+            </p>
+          </div>
+
+          <div className="col-span-2 flex items-stretch border-t md:col-span-1 md:border-t-0 md:border-l">
+            <span className="flex flex-1 items-center justify-center gap-2 px-4 py-3 text-muted-foreground transition-colors group-hover/dl:bg-muted/40 group-hover/dl:text-foreground md:flex-none md:px-5 md:py-0">
+              <span className="font-mono text-xs uppercase tracking-[0.3em]">
+                Download
+              </span>
+              <IconArrowDown size={16} stroke={1.5} />
+            </span>
+          </div>
+        </a>
+
         {/* ~ ============= channel strip ============= ~ */}
         <div className="flex items-center justify-between gap-4 border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
           <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
@@ -282,7 +327,7 @@ export default function Contact() {
           </span>
         </div>
 
-        <section>
+        <section className="scrollbar-thin min-h-0 flex-1 overflow-y-auto">
           {channels.map((channel) => (
             <ChannelRow channel={channel} key={channel.callsign} />
           ))}
