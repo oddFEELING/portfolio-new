@@ -44,11 +44,13 @@ export default function Home() {
         </p>
 
         <div className="mt-2 flex flex-wrap items-center gap-3">
+          {/* Sidebar trigger — accent ring draws the eye to navigation */}
           <span
-            className="cursor-pointer rounded-md border bg-muted/30 p-2 text-muted-foreground hover:border-muted-foreground hover:text-primary dark:bg-muted/40"
+            className="nav-attn cursor-pointer rounded-md border border-[#FF9800]/40 bg-[#FF9800]/[0.06] p-2 text-[#FF9800] transition-colors hover:border-[#FF9800] hover:bg-[#FF9800]/10"
             onClick={toggleSidebar}
             role="button"
             tabIndex={0}
+            title="Toggle sidebar"
           >
             <IconLayout size={22} stroke={1.5} />
           </span>

@@ -114,9 +114,10 @@ export default function Projects() {
             </p>
           </div>
         </div>
+        {/* Sidebar trigger — accent pulse calls attention to navigation */}
         <button
           aria-label="Toggle sidebar"
-          className="flex shrink-0 items-center justify-center border-l px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground"
+          className="nav-attn-text flex shrink-0 items-center justify-center border-l border-[#FF9800]/30 px-3 transition-colors duration-300 hover:bg-[#FF9800]/10"
           onClick={toggleSidebar}
           type="button"
         >

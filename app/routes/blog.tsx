@@ -27,13 +27,21 @@ export default function Blog() {
         <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
           BLOG &nbsp;/&nbsp; COMING_SOON
         </span>
+        {/* Sidebar trigger — a Coming-Soon bar that loads forever; click opens nav */}
         <button
           aria-label="Toggle sidebar"
-          className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em] transition-colors hover:text-foreground"
+          className="nav-load group/load flex items-center gap-2.5"
           onClick={toggleSidebar}
           type="button"
         >
-          [ Nav ]
+          <span className="w-28 text-right font-mono text-[#FF9800] text-[0.7rem] uppercase tracking-[0.25em]">
+            {/* Label flips to the affordance on hover, when the bar freezes */}
+            <span className="group-hover/load:hidden">Click me</span>
+            <span className="hidden group-hover/load:inline">Toggle Nav</span>
+          </span>
+          <span className="relative h-2 w-32 overflow-hidden border border-[#FF9800]/50 bg-[#FF9800]/10">
+            <span className="nav-load-fill absolute inset-y-0 left-0 bg-[#FF9800]" />
+          </span>
         </button>
       </header>
 

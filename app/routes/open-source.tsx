@@ -115,9 +115,10 @@ export default function OpenSource() {
             {openSourceProjects.length} projects · {owned} owned ·{" "}
             {contributing} contributing
           </span>
+          {/* Sidebar trigger — accent pulse calls attention to navigation */}
           <button
             aria-label="Toggle sidebar"
-            className="font-mono text-muted-foreground text-xs uppercase tracking-wider transition-colors hover:text-foreground"
+            className="nav-attn-text font-mono text-xs uppercase tracking-wider"
             onClick={toggleSidebar}
             type="button"
           >

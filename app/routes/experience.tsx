@@ -106,9 +106,10 @@ export default function Experience() {
           </p>
         </div>
         <div className="grid grid-cols-[auto_1fr_1fr]">
+          {/* Sidebar trigger — accent pulse calls attention among its neighbours */}
           <button
             aria-label="Toggle sidebar"
-            className="cursor-target flex items-center justify-center px-3 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-foreground sm:px-4 md:border-l md:px-6"
+            className="nav-attn-text cursor-target flex items-center justify-center px-3 transition-colors duration-300 hover:bg-[#FF9800]/10 sm:px-4 md:border-l md:px-6"
             onClick={toggleSidebar}
             type="button"
           >

@@ -237,7 +237,7 @@ export default function Contact() {
       {/* ~ =================================== ~ */}
       <button
         aria-label="Toggle sidebar"
-        className="group flex shrink-0 items-center justify-center border-r px-2 text-muted-foreground transition-colors duration-300 hover:bg-muted/30 hover:text-[#FF9800] sm:px-3"
+        className="nav-attn-text group flex shrink-0 items-center justify-center border-r border-[#FF9800]/30 px-2 transition-colors duration-300 hover:bg-[#FF9800]/10 sm:px-3"
         onClick={toggleSidebar}
         type="button"
       >
