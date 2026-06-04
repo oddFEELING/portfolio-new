@@ -190,13 +190,13 @@ export default function Experience() {
             <h2 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-6xl">
               <ShutterText
                 className="justify-start!"
-                text="Probably"
+                text="A bit"
                 trigger="auto"
               />
               <span className="flex items-baseline">
                 <ShutterText
                   className="justify-start!"
-                  text="a steal"
+                  text="about me"
                   trigger="auto"
                 />
                 <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">

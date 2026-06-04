@@ -95,13 +95,13 @@ export default function Projects() {
             <h1 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-5xl">
               <ShutterText
                 className="justify-start!"
-                text="Receipts"
+                text="Things I've"
                 trigger="auto"
               />
               <span className="flex items-baseline">
                 <ShutterText
                   className="justify-start!"
-                  text="attached"
+                  text="built"
                   trigger="auto"
                 />
                 <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">
@@ -110,7 +110,7 @@ export default function Projects() {
               </span>
             </h1>
             <p className="text-muted-foreground text-sm">
-              A few things I&apos;ve built — the rest lives in the work itself.
+              A selection of my work — the rest lives in the work itself.
             </p>
           </div>
         </div>
