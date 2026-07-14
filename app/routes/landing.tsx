@@ -64,7 +64,7 @@ export default function Home() {
         <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
           I&apos;m Emmanuel Alawode — A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            Full-stack &amp; AI Engineer
+            Software Engineer
           </Highlighter>{" "}
           And I like to build stuff.
         </h1>
