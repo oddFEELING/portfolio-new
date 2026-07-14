@@ -30,6 +30,17 @@ export const openSourceProjects: OpenSourceProject[] = [
     ],
   },
   {
+    slug: "chowbea-pdf",
+    name: "Chowbea PDF",
+    role: "Owner",
+    summary:
+      "Free, ad-free PDF tools that run in the browser — compress, lock, unlock, merge, convert, and rotate. Jobs go through a RabbitMQ-backed queue so heavy load never takes the service down; no accounts required.",
+    links: [
+      { label: "pdf.chowbea.com", href: "https://pdf.chowbea.com/" },
+      { label: "GitHub", href: "https://github.com/ToniChowBea/chowbea-pdf" },
+    ],
+  },
+  {
     slug: "reactuse",
     name: "reactuse",
     role: "Contributor",

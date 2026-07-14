@@ -1,5 +1,13 @@
 import { motion } from "motion/react";
+import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router";
+import {
+  HeroReplayButton,
+  hasSeenLandingHero,
+  LANDING_EASE,
+  LANDING_LAYOUT_MS,
+  LandingHero,
+} from "@/components/landing-hero";
 import { useTheme } from "@/components/providers/theme.provider";
 import { Highlighter } from "@/components/ui/highlighter";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -15,8 +23,6 @@ import {
 } from "@tabler/icons-react";
 import type { Route } from "./+types/landing";
 
-const EASE_OUT_QUART = [0.22, 1, 0.36, 1] as [number, number, number, number];
-
 export function meta(_: Route.MetaArgs) {
   return [
     { title: "Emmanuel Alawode" },
@@ -27,26 +33,46 @@ export function meta(_: Route.MetaArgs) {
 export default function Home() {
   const { toggleSidebar } = useSidebar();
   const { theme, setTheme } = useTheme();
+  // Start settled if this session already saw the intro (avoids a layout flash).
+  const [settled, setSettled] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+    if (hasSeenLandingHero()) {
+      return true;
+    }
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+  // Skip fade-in when remounting after the intro was already finished this session.
+  const instantSectionsRef = useRef(hasSeenLandingHero());
+  const handleSettledChange = useCallback((next: boolean) => {
+    if (!next) {
+      // Replay re-expands — allow sibling entrance motion again.
+      instantSectionsRef.current = false;
+    }
+    setSettled(next);
+  }, []);
 
   return (
     <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
-      <header className="landing-section flex w-full flex-col justify-center gap-5 overflow-hidden border px-4 py-14 md:col-span-4 md:row-span-2 md:min-h-0 md:gap-4 md:p-6">
-        <h1 className="w-full max-w-2xl font-semibold text-4xl">
+      {/* Hero starts full-bleed, then morphs into its grid cell at 4s. */}
+      <LandingHero onSettledChange={handleSettledChange}>
+        <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
           I&apos;m Emmanuel - A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
             Full-stack Engineer
           </Highlighter>{" "}
           And I like to build stuff.
         </h1>
-        <p className="w-full max-w-lg text-muted-foreground">
+        <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
           Four years building AI products that don&apos;t quietly break in
           production.
         </p>
 
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          {/* Sidebar trigger — accent ring draws the eye to navigation */}
+        <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">
+          {/* Sidebar alone on the first mobile row; inline with the rest on desktop. */}
           <span
-            className="nav-attn cursor-pointer rounded-md border border-[#FF9800]/40 bg-[#FF9800]/[0.06] p-2 text-[#FF9800] transition-colors hover:border-[#FF9800] hover:bg-[#FF9800]/10"
+            className="nav-attn flex h-11 w-full cursor-pointer items-center justify-center rounded-md border border-[#FF9800]/40 bg-background p-2 text-[#FF9800] transition-colors hover:border-[#FF9800] hover:bg-[#FF9800]/10 md:h-auto md:w-auto"
             onClick={toggleSidebar}
             role="button"
             tabIndex={0}
@@ -54,86 +80,119 @@ export default function Home() {
           >
             <IconLayout size={22} stroke={1.5} />
           </span>
-          <span
-            className="cursor-pointer rounded-md border bg-muted/30 p-2 text-muted-foreground hover:border-muted-foreground hover:text-primary dark:bg-muted/40"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            role="button"
-            tabIndex={0}
-            title="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <IconSun size={22} stroke={1.5} />
-            ) : (
-              <IconMoon size={22} stroke={1.5} />
-            )}
-          </span>
-          {socialLinks.map((item) => (
-            <a
-              className="cursor-pointer rounded-md border p-2 text-muted-foreground hover:animate-pulse hover:border-muted-foreground hover:bg-muted/15 hover:text-primary"
-              href={item.href}
-              key={item.label}
-              rel="noreferrer"
-              target="_blank"
-              title={item.label}
-            >
-              <item.Icon size={22} stroke={1.5} />
-            </a>
-          ))}
-        </div>
-      </header>
 
-      <section className="landing-section flex flex-col justify-center gap-4 border-y py-12 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6">
-        <div className="flex flex-col gap-1 px-4 md:px-6">
-          <h2 className="font-semibold text-xl">My Tech Stack</h2>
-          <p className="text-muted-foreground text-xs">
-            The tools I reach for to ship end-to-end.
-          </p>
-        </div>
-        <div className="-ml-px flex flex-wrap">
-          {techStack.map((tech) => (
+          {/* Mobile: perfect 3-col grid. Desktop: dissolve into the flex row. */}
+          <div className="grid w-full grid-cols-3 gap-2 md:contents">
             <span
-              className="-mr-px -mb-px flex grow items-center justify-center border px-3 py-2.5 text-center text-muted-foreground text-sm transition-colors duration-300 hover:bg-muted/30"
-              key={tech}
+              className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              role="button"
+              tabIndex={0}
+              title="Toggle theme"
             >
-              {tech}
+              {theme === "dark" ? (
+                <IconSun size={22} stroke={1.5} />
+              ) : (
+                <IconMoon size={22} stroke={1.5} />
+              )}
             </span>
-          ))}
-        </div>
-      </section>
-
-      <section className="landing-section flex items-center overflow-hidden border md:col-span-6 md:row-span-1">
-        <div className="marquee w-full overflow-hidden">
-          <div className="marquee-track flex w-max items-center">
-            {[0, 1].map((copy) => (
-              <div
-                aria-hidden={copy === 1}
-                className="flex items-center"
-                key={copy}
+            {/* Restart the hero walk-in clip from the beginning. */}
+            <HeroReplayButton className="flex h-11 w-full items-center justify-center p-2 md:h-auto md:w-auto" />
+            {socialLinks.map((item) => (
+              <a
+                className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:animate-pulse hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
+                href={item.href}
+                key={item.label}
+                rel="noreferrer"
+                target="_blank"
+                title={item.label}
               >
-                {marqueeItems.map((item) => (
-                  <span
-                    className="flex items-center whitespace-nowrap"
-                    key={`${copy}-${item.label}`}
-                  >
-                    <span
-                      className={
-                        item.accent
-                          ? "px-6 py-4 font-medium text-base"
-                          : "px-6 py-4 text-base text-muted-foreground"
-                      }
-                    >
-                      {item.label}
-                    </span>
-                    <span className="text-muted-foreground/40">→</span>
-                  </span>
-                ))}
-              </div>
+                <item.Icon size={22} stroke={1.5} />
+              </a>
             ))}
           </div>
         </div>
-      </section>
+      </LandingHero>
 
-      <section className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0">
+      {/* Tech stack + marquee enter as the hero settles; experience stays put. */}
+      {settled && (
+        <>
+          <motion.section
+            animate={{ opacity: 1 }}
+            className="landing-section flex flex-col justify-center gap-4 border-y py-12 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6"
+            initial={instantSectionsRef.current ? false : { opacity: 0 }}
+            transition={{
+              duration: LANDING_LAYOUT_MS / 1000,
+              ease: LANDING_EASE,
+              delay: 0.05,
+            }}
+          >
+            <div className="flex flex-col gap-1 px-4 md:px-6">
+              <h2 className="font-semibold text-xl">My Tech Stack</h2>
+              <p className="text-muted-foreground text-xs">
+                The tools I reach for to ship end-to-end.
+              </p>
+            </div>
+            <div className="-ml-px flex flex-wrap">
+              {techStack.map((tech) => (
+                <span
+                  className="-mr-px -mb-px flex grow items-center justify-center border px-3 py-2.5 text-center text-muted-foreground text-sm transition-colors duration-300 hover:bg-muted/30"
+                  key={tech}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section
+            animate={{ opacity: 1 }}
+            className="landing-section flex items-center overflow-hidden border md:col-span-6 md:row-span-1"
+            initial={instantSectionsRef.current ? false : { opacity: 0 }}
+            transition={{
+              duration: LANDING_LAYOUT_MS / 1000,
+              ease: LANDING_EASE,
+              delay: 0.12,
+            }}
+          >
+            <div className="marquee w-full overflow-hidden">
+              <div className="marquee-track flex w-max items-center">
+                {[0, 1].map((copy) => (
+                  <div
+                    aria-hidden={copy === 1}
+                    className="flex items-center"
+                    key={copy}
+                  >
+                    {marqueeItems.map((item) => (
+                      <span
+                        className="flex items-center whitespace-nowrap"
+                        key={`${copy}-${item.label}`}
+                      >
+                        <span
+                          className={
+                            item.accent
+                              ? "px-6 py-4 font-medium text-base"
+                              : "px-6 py-4 text-base text-muted-foreground"
+                          }
+                        >
+                          {item.label}
+                        </span>
+                        <span className="text-muted-foreground/40">→</span>
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+        </>
+      )}
+
+      <motion.section
+        animate={{ opacity: 1 }}
+        className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0"
+        initial={false}
+      >
         <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-7 md:px-6 md:py-3">
           <h2 className="font-semibold text-xl">Experience &amp; Projects</h2>
           <p className="text-muted-foreground text-xs">
@@ -152,7 +211,7 @@ export default function Home() {
               transition: {
                 duration: 0.35,
                 delay: baseDelay + offset,
-                ease: EASE_OUT_QUART,
+                ease: LANDING_EASE,
               },
             });
 
@@ -194,7 +253,7 @@ export default function Home() {
             );
           })}
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
@@ -208,7 +267,7 @@ const socialLinks: { Icon: TablerIcon; href: string; label: string }[] = [
   },
   {
     Icon: IconBrandGithub,
-    href: "https://github.com/oddFEELING",
+    href: "https://github.com/ToniChowBea",
     label: "GitHub",
   },
   {

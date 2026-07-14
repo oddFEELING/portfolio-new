@@ -57,9 +57,9 @@ const channels: Channel[] = [
   {
     callsign: "02",
     label: "GitHub",
-    handle: "@oddFEELING",
-    value: "github.com/oddFEELING",
-    href: "https://github.com/oddFEELING",
+    handle: "@ToniChowBea",
+    value: "github.com/ToniChowBea",
+    href: "https://github.com/ToniChowBea",
     Icon: IconBrandGithub,
   },
   {
