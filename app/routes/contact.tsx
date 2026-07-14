@@ -16,6 +16,7 @@ import {
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/contact";
+import { buildMeta } from "@/lib/seo";
 
 const EASE_OUT_QUART = [0.22, 1, 0.36, 1] as [number, number, number, number];
 const BACK_OUT = [0.34, 1.56, 0.64, 1] as [number, number, number, number];
@@ -27,13 +28,12 @@ const fadeUp = (delay: number) => ({
 });
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Contact — Emmanuel Alawode" },
-    {
-      name: "description",
-      content: "Channels open. Ways to reach Emmanuel Alawode.",
-    },
-  ];
+  return buildMeta({
+    title: "Contact — Emmanuel Alawode",
+    description:
+      "Contact Emmanuel Alawode — Nigerian full-stack and AI software engineer. Email, GitHub, LinkedIn, and X.",
+    path: "/contact",
+  });
 }
 
 type Channel = {

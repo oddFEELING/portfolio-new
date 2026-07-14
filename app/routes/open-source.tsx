@@ -6,16 +6,15 @@ import { openSourceProjects } from "@/data/open-source";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/open-source";
+import { buildMeta } from "@/lib/seo";
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Open Source — Emmanuel Alawode" },
-    {
-      name: "description",
-      content:
-        "Open-source projects Emmanuel Alawode builds and contributes to.",
-    },
-  ];
+  return buildMeta({
+    title: "Open Source — Emmanuel Alawode",
+    description:
+      "Open-source work by Emmanuel Alawode — ChowBea Axios, Chowbea PDF, React hooks, and code-intelligence tools.",
+    path: "/open-source",
+  });
 }
 
 function OpenSourceRow({

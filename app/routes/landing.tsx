@@ -22,12 +22,16 @@ import {
   type TablerIcon,
 } from "@tabler/icons-react";
 import type { Route } from "./+types/landing";
+import { buildMeta } from "@/lib/seo";
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Emmanuel Alawode" },
-    { name: "description", content: "I build stuff. And they work." },
-  ];
+  return buildMeta({
+    title: "Emmanuel Alawode | Nigerian Full-Stack & AI Software Engineer",
+    description:
+      "Emmanuel Alawode — Nigerian full-stack and AI software engineer in London. Founding engineer shipping production AI products, agents, and scalable platforms.",
+    path: "/",
+    type: "profile",
+  });
 }
 
 export default function Home() {
@@ -58,15 +62,15 @@ export default function Home() {
       {/* Hero starts full-bleed, then morphs into its grid cell at 4s. */}
       <LandingHero onSettledChange={handleSettledChange}>
         <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
-          I&apos;m Emmanuel - A{" "}
+          I&apos;m Emmanuel Alawode — A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            Full-stack Engineer
+            Full-stack &amp; AI Engineer
           </Highlighter>{" "}
           And I like to build stuff.
         </h1>
         <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
-          Four years building AI products that don&apos;t quietly break in
-          production.
+          Nigerian engineer in London. Four years building AI products that
+          don&apos;t quietly break in production.
         </p>
 
         <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">

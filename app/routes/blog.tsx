@@ -1,14 +1,15 @@
 import { useSidebar } from "@/components/ui/sidebar";
+import { buildMeta } from "@/lib/seo";
 import type { Route } from "./+types/blog";
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Blog — Coming Soon · Emmanuel Alawode" },
-    {
-      name: "description",
-      content: "The blog is in build. Powered by Sanity CMS.",
-    },
-  ];
+  return buildMeta({
+    title: "Blog — Coming Soon",
+    description:
+      "Emmanuel Alawode's engineering blog is coming soon — notes on AI systems, full-stack craft, and shipping.",
+    path: "/blog",
+    noindex: true,
+  });
 }
 
 const statusCells = [

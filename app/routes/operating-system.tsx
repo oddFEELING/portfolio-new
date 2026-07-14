@@ -13,7 +13,17 @@ import {
 import { Panel } from "@/components/ai-elements/panel";
 import { Toolbar } from "@/components/ai-elements/toolbar";
 import { Button } from "@/components/ui/button";
+import { buildMeta } from "@/lib/seo";
 import { format } from "date-fns";
+
+export function meta() {
+  return buildMeta({
+    title: "Operating System",
+    description: "Experimental desktop playground on Emmanuel Alawode's portfolio.",
+    path: "/operating-system",
+    noindex: true,
+  });
+}
 
 const OperatingStatyemPage = () => (
   <div className="flex h-dvh w-full flex-col">

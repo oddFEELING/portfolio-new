@@ -8,15 +8,15 @@ import type { Project } from "@/data/projects";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/projects";
+import { buildMeta } from "@/lib/seo";
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Projects — Emmanuel Alawode" },
-    {
-      name: "description",
-      content: "Selected projects built by Emmanuel Alawode.",
-    },
-  ];
+  return buildMeta({
+    title: "Projects — Emmanuel Alawode",
+    description:
+      "Selected projects by Emmanuel Alawode — AI platforms, data products, and tools built as a Nigerian full-stack and AI software engineer.",
+    path: "/projects",
+  });
 }
 
 function ProjectTile({

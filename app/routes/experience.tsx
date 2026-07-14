@@ -6,6 +6,7 @@ import TargetCursor from "@/components/ui/target-cursor";
 import { IconDownload, IconLayout, IconMail } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/experience";
+import { buildMeta } from "@/lib/seo";
 
 /**
  * PLACEHOLDER NOTICE
@@ -16,13 +17,12 @@ import type { Route } from "./+types/experience";
  */
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "Experience — Emmanuel Alawode" },
-    {
-      name: "description",
-      content: "Work history and education of Emmanuel Alawode.",
-    },
-  ];
+  return buildMeta({
+    title: "Experience — Emmanuel Alawode",
+    description:
+      "Work history of Emmanuel Alawode: founding AI/software engineer at Zenning AI, Dataphyte UK, and full-stack engineering across AI products.",
+    path: "/experience",
+  });
 }
 
 type WorkItem = {
