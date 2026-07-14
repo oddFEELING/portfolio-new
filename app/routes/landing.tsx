@@ -62,7 +62,7 @@ export default function Home() {
       {/* Hero starts full-bleed, then morphs into its grid cell at 4s. */}
       <LandingHero onSettledChange={handleSettledChange}>
         <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
-          I&apos;m Emmanuel Alawode — A{" "}
+          I&apos;m Emmanuel Alawode, A{" "}
           <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
             Software Engineer
           </Highlighter>{" "}
@@ -70,7 +70,7 @@ export default function Home() {
         </h1>
         <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
           Four years building AI products that don&apos;t quietly break in
-          production — based in London.
+          production, based in London.
         </p>
 
         <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">
