@@ -6,22 +6,21 @@ export const SITE = {
   name: "Emmanuel Alawode",
   shortName: "Emmanuel Alawode",
   url: "https://emmanuelalawode.com",
-  title: "Emmanuel Alawode | Nigerian Full-Stack & AI Software Engineer",
+  title: "Emmanuel Alawode | Full-Stack & AI Software Engineer",
   description:
-    "Emmanuel Alawode is a Nigerian full-stack and AI software engineer based in London. Founding engineer building production AI products, agent systems, and scalable web platforms.",
+    "Emmanuel Alawode is a full-stack and AI software engineer based in London. Founding engineer building production AI products, agent systems, and scalable web platforms.",
   /** Default Open Graph / Twitter share image. */
   ogImage: "/Emmanuel_Alawode.webp",
   ogImageAlt:
-    "Portrait of Emmanuel Alawode, Nigerian full-stack and AI software engineer",
+    "Portrait of Emmanuel Alawode, full-stack and AI software engineer",
   locale: "en_GB",
   themeColor: "#0a0a0a",
   keywords: [
     "Emmanuel Alawode",
-    "Nigerian software engineer",
-    "Nigerian AI engineer",
-    "Nigerian full-stack engineer",
-    "AI software engineer London",
+    "software engineer",
+    "AI engineer",
     "full-stack engineer",
+    "AI software engineer London",
     "founding engineer",
     "AI agents",
     "TypeScript",
@@ -37,7 +36,6 @@ export const SITE = {
   email: "alawodeemmanuel2@gmail.com",
   jobTitle: "Founding AI/Software Engineer",
   location: "London, United Kingdom",
-  nationality: "Nigerian",
 } as const;
 
 /** Public routes included in the sitemap (path + change frequency hints). */
@@ -137,10 +135,6 @@ export function buildSiteJsonLd() {
     jobTitle: SITE.jobTitle,
     description: SITE.description,
     email: SITE.email,
-    nationality: {
-      "@type": "Country",
-      name: "Nigeria",
-    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "London",

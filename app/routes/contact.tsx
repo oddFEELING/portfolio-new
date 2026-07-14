@@ -31,7 +31,7 @@ export function meta(_: Route.MetaArgs) {
   return buildMeta({
     title: "Contact — Emmanuel Alawode",
     description:
-      "Contact Emmanuel Alawode — Nigerian full-stack and AI software engineer. Email, GitHub, LinkedIn, and X.",
+      "Contact Emmanuel Alawode — full-stack and AI software engineer. Email, GitHub, LinkedIn, and X.",
     path: "/contact",
   });
 }

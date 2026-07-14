@@ -14,7 +14,7 @@ export function meta(_: Route.MetaArgs) {
   return buildMeta({
     title: "Projects — Emmanuel Alawode",
     description:
-      "Selected projects by Emmanuel Alawode — AI platforms, data products, and tools built as a Nigerian full-stack and AI software engineer.",
+      "Selected projects by Emmanuel Alawode — AI platforms, data products, and tools built as a full-stack and AI software engineer.",
     path: "/projects",
   });
 }

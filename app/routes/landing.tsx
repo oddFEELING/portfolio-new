@@ -26,9 +26,9 @@ import { buildMeta } from "@/lib/seo";
 
 export function meta(_: Route.MetaArgs) {
   return buildMeta({
-    title: "Emmanuel Alawode | Nigerian Full-Stack & AI Software Engineer",
+    title: "Emmanuel Alawode | Full-Stack & AI Software Engineer",
     description:
-      "Emmanuel Alawode — Nigerian full-stack and AI software engineer in London. Founding engineer shipping production AI products, agents, and scalable platforms.",
+      "Emmanuel Alawode — full-stack and AI software engineer in London. Founding engineer shipping production AI products, agents, and scalable platforms.",
     path: "/",
     type: "profile",
   });
@@ -69,8 +69,8 @@ export default function Home() {
           And I like to build stuff.
         </h1>
         <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
-          Nigerian engineer in London. Four years building AI products that
-          don&apos;t quietly break in production.
+          Four years building AI products that don&apos;t quietly break in
+          production — based in London.
         </p>
 
         <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">
