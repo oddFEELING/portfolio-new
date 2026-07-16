@@ -1,4 +1,4 @@
-import {TagIcon} from '@sanity/icons'
+import {TagIcon} from '@sanity/icons/Tag'
 import {defineField, defineType} from 'sanity'
 
 /** Topic label for filtering, tag pages, and related-post fallback. */

@@ -1,4 +1,4 @@
-import {ThLargeIcon} from '@sanity/icons'
+import {ThLargeIcon} from '@sanity/icons/ThLarge'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
 /** Simple markdown-like table stored as rows of string cells. */

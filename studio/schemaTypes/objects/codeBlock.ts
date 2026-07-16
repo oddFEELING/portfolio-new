@@ -1,4 +1,4 @@
-import {CodeIcon} from '@sanity/icons'
+import {CodeIcon} from '@sanity/icons/Code'
 import {defineField, defineType} from 'sanity'
 
 /** Fenced code sample with language hint for syntax highlighting. */

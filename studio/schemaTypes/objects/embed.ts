@@ -1,4 +1,4 @@
-import {PlayIcon} from '@sanity/icons'
+import {PlayIcon} from '@sanity/icons/Play'
 import {defineField, defineType} from 'sanity'
 
 /** External embed (YouTube or generic URL) rendered in the post body. */
