@@ -1,7 +1,8 @@
 import { stegaClean } from "@sanity/client/stega";
 import { data, useLoaderData } from "react-router";
 import { PostList, type PostListItem } from "@/components/blog/post-list";
-import { useSidebar } from "@/components/ui/sidebar";
+import { NavDock } from "@/components/navigation/nav-dock";
+import { PageBreadcrumbs } from "@/components/navigation/page-breadcrumbs";
 import { buildMeta } from "@/lib/seo";
 import { useQuery } from "@/sanity/loader";
 import { loadQuery } from "@/sanity/loader.server";
@@ -77,7 +78,6 @@ export function meta({ data: routeData }: Route.MetaArgs) {
 
 /** Tag archive — same list treatment as the index, scoped to one tag. */
 export default function BlogTagArchive() {
-  const { toggleSidebar } = useSidebar();
   const {
     postsInitial,
     postsParams,
@@ -103,26 +103,19 @@ export default function BlogTagArchive() {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <header className="flex shrink-0 items-stretch border-b">
+        <NavDock />
         <div className="flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-4 md:px-6">
-          <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-            Blog &nbsp;/&nbsp; Tag &nbsp;/&nbsp; {stegaClean(tag.slug)}
-            {preview ? " · Preview" : ""}
-          </span>
+          <PageBreadcrumbs
+            items={[
+              { label: "Blog", href: "/blog" },
+              { label: stegaClean(tag.slug) },
+            ]}
+            suffix={preview ? " · Preview" : undefined}
+          />
           <span className="font-mono text-muted-foreground text-xs tabular-nums tracking-[0.2em]">
             {postCount}
           </span>
         </div>
-        <button
-          aria-label="Toggle sidebar"
-          className="nav-attn-text flex shrink-0 items-center justify-center border-[#FF9800]/30 border-l px-3 transition-colors duration-300 hover:bg-[#FF9800]/10"
-          onClick={toggleSidebar}
-          type="button"
-        >
-          <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
-            <span className="md:hidden">Sidebar</span>
-            <span className="hidden md:inline">Toggle Sidebar</span>
-          </span>
-        </button>
       </header>
 
       <main className="min-h-0 flex-1 overflow-y-auto">

@@ -5,7 +5,8 @@ import { data } from "react-router";
 import { PostPortableText } from "@/components/blog/portable-text";
 import { RelatedPosts } from "@/components/blog/related-posts";
 import { TagChips } from "@/components/blog/tag-chips";
-import { useSidebar } from "@/components/ui/sidebar";
+import { NavDock } from "@/components/navigation/nav-dock";
+import { PageBreadcrumbs } from "@/components/navigation/page-breadcrumbs";
 import { type RelatedPost, resolveRelatedPosts } from "@/lib/blog/related";
 import { buildMeta } from "@/lib/seo";
 import { urlFor } from "@/sanity/image";
@@ -138,7 +139,6 @@ export function meta({ data: routeData }: Route.MetaArgs) {
 
 /** Displays a live Sanity-backed article while preserving the shared site chrome. */
 export default function BlogPost({ loaderData }: Route.ComponentProps) {
-  const { toggleSidebar } = useSidebar();
   const { initial, params, preview, query, related } = loaderData;
   const { data: post } = useQuery<BlogPost | null>(query, params, { initial });
 
@@ -153,19 +153,17 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6">
-        <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-          BLOG &nbsp;/&nbsp; {stegaClean(post.slug)}
-          {preview ? " · PREVIEW" : ""}
-        </span>
-        <button
-          aria-label="Toggle sidebar"
-          className="font-mono text-muted-foreground text-xs uppercase tracking-wider"
-          onClick={toggleSidebar}
-          type="button"
-        >
-          Menu
-        </button>
+      <header className="flex shrink-0 items-stretch border-b">
+        <NavDock />
+        <div className="flex min-w-0 flex-1 items-center px-4 py-3 md:px-6">
+          <PageBreadcrumbs
+            items={[
+              { label: "Blog", href: "/blog" },
+              { label: stegaClean(post.slug) },
+            ]}
+            suffix={preview ? " · Preview" : undefined}
+          />
+        </div>
       </header>
 
       <article className="min-h-0 flex-1 overflow-y-auto px-4 py-10 md:px-12 md:py-14">
