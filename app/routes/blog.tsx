@@ -5,7 +5,12 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { buildMeta } from "@/lib/seo";
 import { useQuery } from "@/sanity/loader";
 import { loadQuery } from "@/sanity/loader.server";
-import { POSTS_QUERY, TAG_POSTS_QUERY, TAGS_QUERY } from "@/sanity/queries";
+import {
+  postsQueryFor,
+  tagPostsQueryFor,
+  tagsQueryFor,
+} from "@/sanity/preview-queries";
+import { getPreviewData } from "@/sanity/session.server";
 import type { Route } from "./+types/blog";
 
 const POST_COUNT_WIDTH = 3;
@@ -20,37 +25,51 @@ export function meta(_: Route.MetaArgs) {
   });
 }
 
-/** Loads published posts (optionally filtered) and tags used for chip filters. */
+/** Loads published or preview posts (optionally filtered) plus tag chips. */
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const activeTag = url.searchParams.get("tag");
+  const { preview, options } = await getPreviewData(request);
+
+  const postsQuery = activeTag
+    ? tagPostsQueryFor(preview)
+    : postsQueryFor(preview);
+  const tagsQuery = tagsQueryFor(preview);
+  const postsParams = activeTag ? { tagSlug: activeTag } : {};
 
   const [postsResult, tagsResult] = await Promise.all([
-    activeTag
-      ? loadQuery<PostListItem[]>(TAG_POSTS_QUERY, { tagSlug: activeTag })
-      : loadQuery<PostListItem[]>(POSTS_QUERY, {}),
-    loadQuery<BlogTag[]>(TAGS_QUERY, {}),
+    loadQuery<PostListItem[]>(postsQuery, postsParams, options),
+    loadQuery<BlogTag[]>(tagsQuery, {}, options),
   ]);
 
   return {
     activeTag,
     postsInitial: postsResult,
-    postsParams: activeTag ? { tagSlug: activeTag } : {},
-    postsQuery: activeTag ? TAG_POSTS_QUERY : POSTS_QUERY,
+    postsParams,
+    postsQuery,
+    preview,
     tagsInitial: tagsResult,
+    tagsQuery,
   };
 }
 
 /** Displays the Sanity-backed blog index with optional tag filtering. */
 export default function Blog() {
   const { toggleSidebar } = useSidebar();
-  const { activeTag, postsInitial, postsParams, postsQuery, tagsInitial } =
-    useLoaderData<typeof loader>();
+  const {
+    activeTag,
+    postsInitial,
+    postsParams,
+    postsQuery,
+    preview,
+    tagsInitial,
+    tagsQuery,
+  } = useLoaderData<typeof loader>();
   const { data: posts } = useQuery<PostListItem[]>(postsQuery, postsParams, {
     initial: postsInitial,
   });
   const { data: tags } = useQuery<BlogTag[]>(
-    TAGS_QUERY,
+    tagsQuery,
     {},
     {
       initial: tagsInitial,
@@ -64,7 +83,7 @@ export default function Blog() {
       <header className="flex shrink-0 items-stretch border-b">
         <div className="flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-4 md:px-6">
           <span className="font-mono text-xs uppercase tracking-[0.3em]">
-            Blog
+            Blog{preview ? " · Preview" : ""}
           </span>
           <span className="font-mono text-muted-foreground text-xs tabular-nums tracking-[0.2em]">
             {postCount}

@@ -1,3 +1,4 @@
+import { stegaClean } from "@sanity/client/stega";
 import type { SanityImageSource } from "@sanity/image-url";
 import { Link } from "react-router";
 import { type BlogTag, TagChips } from "@/components/blog/tag-chips";
@@ -65,7 +66,7 @@ export function PostList({
             <h2 className="mt-2 font-semibold text-2xl leading-tight tracking-tight md:text-3xl">
               <Link
                 className="transition-colors group-hover:text-[#FF9800]"
-                to={`/blog/${post.slug}`}
+                to={`/blog/${stegaClean(post.slug)}`}
               >
                 {post.title}
               </Link>

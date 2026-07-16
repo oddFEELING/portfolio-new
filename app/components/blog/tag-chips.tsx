@@ -1,3 +1,4 @@
+import { stegaClean } from "@sanity/client/stega";
 import { Link } from "react-router";
 
 export type BlogTag = {
@@ -46,11 +47,10 @@ export function TagChips({
         </Link>
       ) : null}
       {tags.map((tag) => {
-        const isActive = activeSlug === tag.slug;
+        const slug = stegaClean(tag.slug);
+        const isActive = activeSlug === slug;
         const to =
-          linkTo === "filter"
-            ? `/blog?tag=${tag.slug}`
-            : `/blog/tag/${tag.slug}`;
+          linkTo === "filter" ? `/blog?tag=${slug}` : `/blog/tag/${slug}`;
 
         return (
           <Link

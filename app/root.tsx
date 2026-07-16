@@ -5,13 +5,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { SanityVisualEditing } from "./components/blog/sanity-visual-editing";
 import AppProvider from "./components/providers/app.provider";
 import { SeoJsonLd } from "./components/seo-json-ld";
-import { absoluteOgImage, buildMeta, SITE } from "./lib/seo";
+import { buildMeta, SITE } from "./lib/seo";
+import { getPreviewData } from "./sanity/session.server";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -27,6 +30,12 @@ export const links: Route.LinksFunction = () => [
   // Preload the share image so social crawlers and LCP benefit.
   { rel: "preload", href: SITE.ogImage, as: "image", type: "image/webp" },
 ];
+
+/** Exposes preview mode so overlays can mount only for content editors. */
+export async function loader({ request }: Route.LoaderArgs) {
+  const { preview } = await getPreviewData(request);
+  return { preview };
+}
 
 /** Site-wide defaults; route `meta` exports refine title/description/canonical. */
 export function meta(_: Route.MetaArgs) {
@@ -60,7 +69,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const data = useRouteLoaderData<typeof loader>("root");
+  const preview = data?.preview ?? false;
+
+  return (
+    <>
+      <Outlet />
+      {preview ? <SanityVisualEditing /> : null}
+    </>
+  );
 }
 
 const NOT_FOUND_STATUS = 404;

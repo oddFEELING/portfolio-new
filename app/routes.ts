@@ -8,6 +8,8 @@ import {
 export default [
   route("/sitemap.xml", "routes/sitemap[.]xml.ts"),
   route("/robots.txt", "routes/robots[.]txt.ts"),
+  route("api/preview-mode/enable", "routes/api.preview-mode.enable.ts"),
+  route("api/preview-mode/disable", "routes/api.preview-mode.disable.ts"),
   layout("routes/_layout.tsx", [
     index("routes/landing.tsx"),
     route("/experience", "routes/experience.tsx"),

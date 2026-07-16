@@ -1,10 +1,12 @@
+import { stegaClean } from "@sanity/client/stega";
 import { data, useLoaderData } from "react-router";
 import { PostList, type PostListItem } from "@/components/blog/post-list";
 import { useSidebar } from "@/components/ui/sidebar";
 import { buildMeta } from "@/lib/seo";
 import { useQuery } from "@/sanity/loader";
 import { loadQuery } from "@/sanity/loader.server";
-import { TAG_POSTS_QUERY, TAG_QUERY } from "@/sanity/queries";
+import { tagPostsQueryFor, tagQueryFor } from "@/sanity/preview-queries";
+import { getPreviewData } from "@/sanity/session.server";
 import type { Route } from "./+types/blog.tag.$slug";
 
 const POST_COUNT_WIDTH = 3;
@@ -16,17 +18,21 @@ type TagDocument = {
   description?: string | null;
 };
 
-/** Loads a tag and its published posts; missing tags become 404s. */
-export async function loader({ params }: Route.LoaderArgs) {
+/** Loads a tag and its posts (published or preview); missing tags → 404. */
+export async function loader({ params, request }: Route.LoaderArgs) {
   const slug = params.slug;
 
   if (!slug) {
     throw data(null, { status: 404 });
   }
 
+  const { preview, options } = await getPreviewData(request);
+  const tagQuery = tagQueryFor(preview);
+  const postsQuery = tagPostsQueryFor(preview);
+
   const [tagResult, postsResult] = await Promise.all([
-    loadQuery<TagDocument | null>(TAG_QUERY, { slug }),
-    loadQuery<PostListItem[]>(TAG_POSTS_QUERY, { tagSlug: slug }),
+    loadQuery<TagDocument | null>(tagQuery, { slug }, options),
+    loadQuery<PostListItem[]>(postsQuery, { tagSlug: slug }, options),
   ]);
 
   if (!tagResult.data) {
@@ -36,12 +42,15 @@ export async function loader({ params }: Route.LoaderArgs) {
   return {
     postsInitial: postsResult,
     postsParams: { tagSlug: slug },
+    postsQuery,
+    preview,
     tagInitial: tagResult,
     tagParams: { slug },
+    tagQuery,
   };
 }
 
-/** Builds tag-archive metadata from the Sanity tag document. */
+/** Builds tag-archive metadata with stega cleaned for head safety. */
 export function meta({ data: routeData }: Route.MetaArgs) {
   const tag = routeData?.tagInitial?.data;
 
@@ -53,27 +62,37 @@ export function meta({ data: routeData }: Route.MetaArgs) {
     });
   }
 
+  const title = stegaClean(tag.title);
+  const description = stegaClean(
+    tag.description || `Posts tagged ${title} by Emmanuel Alawode.`
+  );
+  const slug = stegaClean(tag.slug);
+
   return buildMeta({
-    description:
-      tag.description || `Posts tagged ${tag.title} by Emmanuel Alawode.`,
-    path: `/blog/tag/${tag.slug}`,
-    title: `Tag · ${tag.title}`,
+    description,
+    path: `/blog/tag/${slug}`,
+    title: `Tag · ${title}`,
   });
 }
 
 /** Tag archive — same list treatment as the index, scoped to one tag. */
 export default function BlogTagArchive() {
   const { toggleSidebar } = useSidebar();
-  const { postsInitial, postsParams, tagInitial, tagParams } =
-    useLoaderData<typeof loader>();
-  const { data: tag } = useQuery<TagDocument | null>(TAG_QUERY, tagParams, {
+  const {
+    postsInitial,
+    postsParams,
+    postsQuery,
+    preview,
+    tagInitial,
+    tagParams,
+    tagQuery,
+  } = useLoaderData<typeof loader>();
+  const { data: tag } = useQuery<TagDocument | null>(tagQuery, tagParams, {
     initial: tagInitial,
   });
-  const { data: posts } = useQuery<PostListItem[]>(
-    TAG_POSTS_QUERY,
-    postsParams,
-    { initial: postsInitial }
-  );
+  const { data: posts } = useQuery<PostListItem[]>(postsQuery, postsParams, {
+    initial: postsInitial,
+  });
 
   if (!tag) {
     return null;
@@ -86,7 +105,8 @@ export default function BlogTagArchive() {
       <header className="flex shrink-0 items-stretch border-b">
         <div className="flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-4 md:px-6">
           <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-            Blog &nbsp;/&nbsp; Tag &nbsp;/&nbsp; {tag.slug}
+            Blog &nbsp;/&nbsp; Tag &nbsp;/&nbsp; {stegaClean(tag.slug)}
+            {preview ? " · Preview" : ""}
           </span>
           <span className="font-mono text-muted-foreground text-xs tabular-nums tracking-[0.2em]">
             {postCount}

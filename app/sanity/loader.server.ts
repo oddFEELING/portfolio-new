@@ -3,7 +3,7 @@ import { apiVersion, dataset, projectId, studioUrl } from "./env";
 // biome-ignore lint/style/noExportedImports: Importing first ensures server setup precedes loader use.
 import { loadQuery, setServerClient } from "./loader";
 
-/** Reads Sanity content on the server without exposing the optional token. */
+/** Server Sanity client — token required for draft/preview reads. */
 const serverClient = createClient({
   projectId,
   dataset,
@@ -11,7 +11,7 @@ const serverClient = createClient({
   useCdn: true,
   token: process.env.SANITY_API_READ_TOKEN,
   stega: {
-    // Keep stega off until Phase 3 visual editing / draft preview.
+    // Per-request stega is controlled via loadQuery options from preview mode.
     enabled: false,
     studioUrl,
   },

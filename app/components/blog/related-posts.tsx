@@ -1,3 +1,4 @@
+import { stegaClean } from "@sanity/client/stega";
 import { Link } from "react-router";
 import type { RelatedPost } from "@/lib/blog/related";
 
@@ -35,7 +36,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
           <li className="border-b" key={post._id}>
             <Link
               className="block py-4 transition-colors hover:bg-muted/30"
-              to={`/blog/${post.slug}`}
+              to={`/blog/${stegaClean(post.slug)}`}
             >
               {post.publishedAt ? (
                 <time
