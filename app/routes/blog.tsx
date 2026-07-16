@@ -1,96 +1,67 @@
+import { useLoaderData } from "react-router";
+import { PostList, type PostListItem } from "@/components/blog/post-list";
 import { useSidebar } from "@/components/ui/sidebar";
 import { buildMeta } from "@/lib/seo";
+import { useQuery } from "@/sanity/loader";
+import { loadQuery } from "@/sanity/loader.server";
+import { POSTS_QUERY } from "@/sanity/queries";
 import type { Route } from "./+types/blog";
 
+const POST_COUNT_WIDTH = 3;
+
+/** Defines public metadata for the published blog index. */
 export function meta(_: Route.MetaArgs) {
   return buildMeta({
-    title: "Blog — Coming Soon",
+    title: "Blog",
     description:
-      "Emmanuel Alawode's engineering blog is coming soon — notes on AI systems, full-stack craft, and shipping.",
+      "Notes from Emmanuel Alawode on AI systems, full-stack engineering, and the craft of shipping software.",
     path: "/blog",
-    noindex: true,
   });
 }
 
-const statusCells = [
-  { label: "Status", value: "In Progress" },
-  { label: "CMS", value: "Sanity" },
-  { label: "ETA", value: "Soon™" },
-  { label: "Posts", value: "000" },
-];
+/** Loads published posts for server rendering and live preview hydration. */
+export async function loader() {
+  const params = {};
+  const initial = await loadQuery<PostListItem[]>(POSTS_QUERY, params);
 
+  return { initial, params, query: POSTS_QUERY };
+}
+
+/** Displays the live Sanity-backed blog index. */
 export default function Blog() {
   const { toggleSidebar } = useSidebar();
+  const { initial, params, query } = useLoaderData<typeof loader>();
+  const { data: posts } = useQuery<PostListItem[]>(query, params, { initial });
+  const postCount = String(posts.length).padStart(POST_COUNT_WIDTH, "0");
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-6">
-        <span className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-          BLOG &nbsp;/&nbsp; COMING_SOON
-        </span>
-        {/* Sidebar trigger — a Coming-Soon bar that loads forever; click opens nav */}
+      <header className="flex shrink-0 items-stretch border-b">
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-4 md:px-6">
+          <span className="font-mono text-xs uppercase tracking-[0.3em]">
+            Blog
+          </span>
+          <span className="font-mono text-muted-foreground text-xs tabular-nums tracking-[0.2em]">
+            {postCount}
+          </span>
+        </div>
+        {/* The vertical control keeps navigation available within the route header. */}
         <button
           aria-label="Toggle sidebar"
-          className="nav-load group/load flex items-center gap-2.5"
+          className="nav-attn-text flex shrink-0 items-center justify-center border-[#FF9800]/30 border-l px-3 transition-colors duration-300 hover:bg-[#FF9800]/10"
           onClick={toggleSidebar}
           type="button"
         >
-          <span className="w-28 text-right font-mono text-[#FF9800] text-[0.7rem] uppercase tracking-[0.25em]">
-            {/* Label flips to the affordance on hover, when the bar freezes */}
-            <span className="group-hover/load:hidden">Click me</span>
-            <span className="hidden group-hover/load:inline">Toggle Nav</span>
-          </span>
-          <span className="relative h-2 w-32 overflow-hidden border border-[#FF9800]/50 bg-[#FF9800]/10">
-            <span className="nav-load-fill absolute inset-y-0 left-0 bg-[#FF9800]" />
+          <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
+            <span className="md:hidden">Sidebar</span>
+            <span className="hidden md:inline">Toggle Sidebar</span>
           </span>
         </button>
       </header>
 
-      <main className="relative flex min-h-0 flex-1 flex-col justify-center overflow-hidden border-b">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px)",
-          }}
-        />
-        <div className="relative z-10 max-w-5xl px-4 py-12 md:px-12 md:py-16">
-          <p className="mb-6 font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
-            // 01 — The Blog
-          </p>
-          <h1 className="font-semibold text-6xl leading-[0.85] tracking-tight sm:text-7xl md:text-9xl">
-            Coming
-            <br />
-            Soon
-            <span className="text-[#FF9800]">.</span>
-            <span className="ml-2 inline-block h-[0.7em] w-[0.4em] translate-y-[0.08em] animate-pulse bg-foreground/70 align-baseline" />
-          </h1>
-          <p className="mt-8 max-w-xl text-base text-muted-foreground md:text-lg">
-            A space for writing about the work that happens upstream of the
-            demo — ingestion, architecture, voice, verification.
-          </p>
-          <p className="mt-4 font-mono text-muted-foreground text-xs uppercase tracking-wider">
-            Powered by Sanity CMS · publishing first, polish later.
-          </p>
-        </div>
+      <main className="min-h-0 flex-1 overflow-y-auto">
+        <PostList posts={posts} />
       </main>
-
-      <footer className="-mr-px grid grid-cols-2 md:grid-cols-4">
-        {statusCells.map((cell) => (
-          <div
-            className="-mr-px flex flex-col gap-1 border-r border-b p-3 md:p-4"
-            key={cell.label}
-          >
-            <span className="font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
-              {cell.label}
-            </span>
-            <span className="font-mono text-foreground text-sm uppercase tracking-wider">
-              {cell.value}
-            </span>
-          </div>
-        ))}
-      </footer>
     </div>
   );
 }
