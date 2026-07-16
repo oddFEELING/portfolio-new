@@ -1,5 +1,6 @@
 import type { SanityImageSource } from "@sanity/image-url";
 import { Link } from "react-router";
+import { type BlogTag, TagChips } from "@/components/blog/tag-chips";
 import { urlFor } from "@/sanity/image";
 
 export type PostListItem = {
@@ -9,15 +10,14 @@ export type PostListItem = {
   publishedAt: string;
   excerpt: string;
   coverImage?: SanityImageSource | null;
-  tags?: Array<{
-    _id: string;
-    title: string;
-    slug: string;
-  }> | null;
+  tags?: BlogTag[] | null;
 };
 
 type PostListProps = {
   posts: PostListItem[];
+  /** Empty-state copy when a tag filter returns no posts. */
+  emptyTitle?: string;
+  emptyDescription?: string;
 };
 
 const COVER_IMAGE_WIDTH = 320;
@@ -32,14 +32,17 @@ const formatPublishedDate = (publishedAt: string) =>
   }).format(new Date(publishedAt));
 
 /** Renders published posts as a flush stack of bordered rows. */
-export function PostList({ posts }: PostListProps) {
+export function PostList({
+  posts,
+  emptyTitle = "No posts yet.",
+  emptyDescription = "Notes on engineering, AI systems, and building for the web will appear here.",
+}: PostListProps) {
   if (posts.length === 0) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
-        <p className="font-semibold text-2xl tracking-tight">No posts yet.</p>
+        <p className="font-semibold text-2xl tracking-tight">{emptyTitle}</p>
         <p className="mt-2 max-w-sm text-muted-foreground text-sm">
-          Notes on engineering, AI systems, and building for the web will appear
-          here.
+          {emptyDescription}
         </p>
       </div>
     );
@@ -70,18 +73,11 @@ export function PostList({ posts }: PostListProps) {
             <p className="mt-3 max-w-3xl text-muted-foreground text-sm leading-relaxed md:text-base">
               {post.excerpt}
             </p>
-            {post.tags && post.tags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    className="border px-2 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider"
-                    key={tag._id}
-                  >
-                    {tag.title}
-                  </span>
-                ))}
+            {post.tags && post.tags.length > 0 ? (
+              <div className="mt-5">
+                <TagChips linkTo="archive" tags={post.tags} />
               </div>
-            )}
+            ) : null}
           </div>
 
           {post.coverImage && (
