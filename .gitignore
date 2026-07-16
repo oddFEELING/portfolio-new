@@ -12,3 +12,6 @@
 
 # Git worktrees
 .worktrees/
+
+# Superpowers SDD scratch
+.superpowers/
