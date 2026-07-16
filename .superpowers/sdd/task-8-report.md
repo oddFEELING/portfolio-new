@@ -13,3 +13,7 @@ Implemented `/blog/:slug` registration and a Sanity-backed post detail route wit
 ## Scope
 
 No related-posts UI was added, and tags remain non-link text as required for Phase 1.
+
+## SSR fix
+
+Replaced the `react-syntax-highlighter` code block renderer with SSR-safe semantic `<pre><code>` markup, preserving whitespace, horizontal scrolling, monospace styling, and optional filename or language labels.

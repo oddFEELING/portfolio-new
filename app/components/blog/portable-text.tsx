@@ -5,8 +5,6 @@ import {
 import type { PortableTextBlock } from "@portabletext/types";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { ReactNode } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { urlFor } from "@/sanity/image";
 
 /** YouTube video identifiers are exactly 11 characters. */
@@ -225,30 +223,21 @@ function PostImageBlock({ value }: { value: PostImage }) {
   );
 }
 
-/** Renders highlighted source code with an optional filename label. */
+/** Renders source code as SSR-safe preformatted text with an optional label. */
 function PostCodeBlockComponent({ value }: { value: PostCodeBlock }) {
   const code = value.code ?? "";
-  const language = value.language ?? "text";
-  const label = value.filename ?? language;
+  const label = value.filename ?? value.language;
 
   return (
     <figure className="my-10 overflow-hidden border bg-zinc-950 text-zinc-100">
-      <figcaption className="border-zinc-800 border-b px-4 py-2 font-mono text-[0.65rem] text-zinc-400 uppercase tracking-[0.2em]">
-        {label}
-      </figcaption>
-      <SyntaxHighlighter
-        codeTagProps={{ className: "font-mono text-sm" }}
-        customStyle={{
-          background: "transparent",
-          fontSize: "0.875rem",
-          margin: 0,
-          padding: "1rem",
-        }}
-        language={language}
-        style={oneDark}
-      >
-        {code}
-      </SyntaxHighlighter>
+      {label ? (
+        <figcaption className="border-zinc-800 border-b px-4 py-2 font-mono text-[0.65rem] text-zinc-400 uppercase tracking-[0.2em]">
+          {label}
+        </figcaption>
+      ) : null}
+      <pre className="m-0 overflow-x-auto p-4 font-mono text-sm leading-6">
+        <code className="whitespace-pre font-mono">{code}</code>
+      </pre>
     </figure>
   );
 }
@@ -256,7 +245,7 @@ function PostCodeBlockComponent({ value }: { value: PostCodeBlock }) {
 /** Renders a bordered note, tip, or warning callout. */
 function PostCalloutBlock({ value }: { value: PostCallout }) {
   const tone = value.tone ?? "note";
-  const style = CALLOUT_STYLES[tone];
+  const style = CALLOUT_STYLES[tone] ?? CALLOUT_STYLES.note;
 
   return (
     <aside className={`my-8 border p-5 ${style.className}`}>
