@@ -11,7 +11,8 @@ const serverClient = createClient({
   useCdn: true,
   token: process.env.SANITY_API_READ_TOKEN,
   stega: {
-    enabled: Boolean(studioUrl),
+    // Keep stega off until Phase 3 visual editing / draft preview.
+    enabled: false,
     studioUrl,
   },
 });
