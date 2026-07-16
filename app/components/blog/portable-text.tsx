@@ -9,8 +9,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { urlFor } from "@/sanity/image";
 
-/** YouTube video identifiers contain letters, numbers, underscores, and dashes. */
-const YOUTUBE_ID_PATTERN = /^[\w-]{6,}$/;
+/** YouTube video identifiers are exactly 11 characters. */
+const YOUTUBE_ID_PATTERN = /^[\w-]{11}$/;
 
 /** Normalizes the optional www prefix before matching YouTube hosts. */
 const WWW_PREFIX_PATTERN = /^www\./;
@@ -274,10 +274,10 @@ function PostCalloutBlock({ value }: { value: PostCallout }) {
 function TableHeadingRow({ row }: { row: PostTableRow }) {
   return (
     <tr className="border-b bg-muted/40">
-      {(row.cells ?? []).map((cell) => (
+      {(row.cells ?? []).map((cell, index) => (
         <th
           className="border-r px-4 py-3 text-left font-mono text-xs uppercase tracking-wider last:border-r-0"
-          key={`${row._key}-${cell}`}
+          key={`${row._key}-cell-${index}`}
           scope="col"
         >
           {cell}
@@ -291,10 +291,10 @@ function TableHeadingRow({ row }: { row: PostTableRow }) {
 function TableBodyRow({ row }: { row: PostTableRow }) {
   return (
     <tr className="border-b last:border-b-0">
-      {(row.cells ?? []).map((cell) => (
+      {(row.cells ?? []).map((cell, index) => (
         <td
           className="border-r px-4 py-3 align-top text-sm last:border-r-0"
-          key={`${row._key}-${cell}`}
+          key={`${row._key}-cell-${index}`}
         >
           {cell}
         </td>
