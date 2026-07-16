@@ -1,6 +1,6 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
+import { NavDock } from "@/components/navigation/nav-dock";
 import { Highlighter } from "@/components/ui/highlighter";
-import { useSidebar } from "@/components/ui/sidebar";
 import {
   IconArrowDown,
   IconArrowUpRight,
@@ -227,28 +227,14 @@ function ChannelRow({
 }
 
 export default function Contact() {
-  const { toggleSidebar } = useSidebar();
   const londonTime = useLondonTime();
 
   return (
     <div className="flex md:h-[calc(100dvh-1rem)] md:overflow-hidden">
-      {/* ~ =================================== ~ */}
-      {/* -- Weirdly placed sidebar trigger -- */}
-      {/* ~ =================================== ~ */}
-      <button
-        aria-label="Toggle sidebar"
-        className="nav-attn-text group flex shrink-0 items-center justify-center border-r border-[#FF9800]/30 px-2 transition-colors duration-300 hover:bg-[#FF9800]/10 sm:px-3"
-        onClick={toggleSidebar}
-        type="button"
-      >
-        <span className="rotate-180 font-mono text-[0.65rem] uppercase tracking-[0.4em] [writing-mode:vertical-rl] sm:text-xs">
-          ◂ TOGGLE_SIGNAL ◂ [ NAV ]
-        </span>
-      </button>
+      {/* Shared left dock toggles the app sidebar */}
+      <NavDock />
 
-      {/* ~ =================================== ~ */}
-      {/* -- Main column -- */}
-      {/* ~ =================================== ~ */}
+      {/* Main column: header, résumé, and channel list */}
       <div className="flex min-w-0 flex-1 flex-col md:overflow-hidden">
         {/* ~ ============= header ============= ~ */}
         <header className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">

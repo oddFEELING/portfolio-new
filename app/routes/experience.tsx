@@ -1,9 +1,9 @@
 import resumeUrl from "@/assets/Emmanuel_Alawode_Resume.pdf?url";
+import { NavDock } from "@/components/navigation/nav-dock";
 import { Highlighter } from "@/components/ui/highlighter";
 import { ShutterText } from "@/components/ui/shutter-text";
-import { useSidebar } from "@/components/ui/sidebar";
 import TargetCursor from "@/components/ui/target-cursor";
-import { IconDownload, IconLayout, IconMail } from "@tabler/icons-react";
+import { IconDownload, IconMail } from "@tabler/icons-react";
 import { useState } from "react";
 import type { Route } from "./+types/experience";
 import { buildMeta } from "@/lib/seo";
@@ -89,148 +89,145 @@ function EducationBlock({ item }: { item: EducationItem }) {
 
 export default function Experience() {
   const [cursorActive, setCursorActive] = useState(false);
-  const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="h-full overflow-y-auto">
-      {cursorActive && <TargetCursor />}
-      <header
-        className="flex flex-col border-b md:grid md:grid-cols-2"
-        onPointerEnter={() => setCursorActive(true)}
-        onPointerLeave={() => setCursorActive(false)}
-      >
-        <div className="border-b px-4 py-6 md:border-b-0 md:px-6 md:py-3">
-          <h1 className="font-semibold text-2xl">Experience</h1>
-          <p className="text-muted-foreground text-sm">
-            The roles I&apos;ve held and where I studied.
-          </p>
-        </div>
-        <div className="grid grid-cols-[auto_1fr_1fr]">
-          {/* Sidebar trigger — accent pulse calls attention among its neighbours */}
-          <button
-            aria-label="Toggle sidebar"
-            className="nav-attn-text cursor-target flex items-center justify-center px-3 transition-colors duration-300 hover:bg-[#FF9800]/10 sm:px-4 md:border-l md:px-6"
-            onClick={toggleSidebar}
-            type="button"
-          >
-            <IconLayout className="shrink-0" size={22} stroke={1.5} />
-          </button>
-          <a
-            className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
-            download="Emmanuel_Alawode_Resume.pdf"
-            href={resumeUrl}
-          >
-            <IconDownload
-              className="shrink-0 text-muted-foreground"
-              size={22}
-              stroke={1.5}
-            />
-            <span className="truncate font-semibold text-sm">
-              Download Résumé
-            </span>
-          </a>
-          <a
-            className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
-            href="mailto:alawodeemmanuel2@gmail.com"
-          >
-            <IconMail
-              className="shrink-0 text-muted-foreground"
-              size={22}
-              stroke={1.5}
-            />
-            <span className="truncate font-semibold text-sm">
-              Get in Touch
-            </span>
-          </a>
-        </div>
-      </header>
+    <div className="flex h-full">
+      {/* Shared left dock toggles the app sidebar */}
+      <NavDock />
 
-      <section className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
-        <div className="md:order-1">
-          <div className="flex flex-col gap-8 px-4 py-14 md:gap-12 md:px-6 md:py-24">
-            <p className="text-balance text-lg leading-relaxed md:text-xl">
-              Full-stack engineer with{" "}
-              <Highlighter
-                action="underline"
-                color="#FF9800"
-                strokeWidth={1}
-              >
-                four years
-              </Highlighter>{" "}
-              shipping AI products end-to-end, founding engineering on a
-              multi-product platform with{" "}
-              <Highlighter
-                action="underline"
-                color="#FF9800"
-                strokeWidth={1}
-              >
-                50+ integrations
-              </Highlighter>{" "}
-              and owning everything from API design to deployment.
-            </p>
-            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
-              Currently &mdash; Founding AI/Software Engineer at Zenning AI
+      {/* Scrollable page column: header actions, about, work, education */}
+      <div className="min-w-0 flex-1 overflow-y-auto">
+        {cursorActive && <TargetCursor />}
+        <header
+          className="flex flex-col border-b md:grid md:grid-cols-2"
+          onPointerEnter={() => setCursorActive(true)}
+          onPointerLeave={() => setCursorActive(false)}
+        >
+          <div className="border-b px-4 py-6 md:border-b-0 md:px-6 md:py-3">
+            <h1 className="font-semibold text-2xl">Experience</h1>
+            <p className="text-muted-foreground text-sm">
+              The roles I&apos;ve held and where I studied.
             </p>
           </div>
-        </div>
-
-        <aside className="relative overflow-hidden border-b md:order-2 md:border-b-0 md:border-l">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-[0.08]"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px)",
-            }}
-          />
-          <div className="relative z-10 flex h-full flex-col justify-center gap-4 px-4 py-8 md:px-6 md:py-12">
-            <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
-              // About
-            </p>
-            <h2 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-6xl">
-              <ShutterText
-                className="justify-start!"
-                text="A bit"
-                trigger="auto"
+          {/* Résumé download and email CTAs */}
+          <div className="grid grid-cols-2">
+            <a
+              className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
+              download="Emmanuel_Alawode_Resume.pdf"
+              href={resumeUrl}
+            >
+              <IconDownload
+                className="shrink-0 text-muted-foreground"
+                size={22}
+                stroke={1.5}
               />
-              <span className="flex items-baseline">
+              <span className="truncate font-semibold text-sm">
+                Download Résumé
+              </span>
+            </a>
+            <a
+              className="cursor-target flex min-w-0 items-center gap-2 border-l px-3 py-3 transition-colors duration-300 hover:bg-muted/30 sm:gap-3 sm:px-4 md:px-6"
+              href="mailto:alawodeemmanuel2@gmail.com"
+            >
+              <IconMail
+                className="shrink-0 text-muted-foreground"
+                size={22}
+                stroke={1.5}
+              />
+              <span className="truncate font-semibold text-sm">
+                Get in Touch
+              </span>
+            </a>
+          </div>
+        </header>
+
+        <section className="grid grid-cols-1 border-b md:grid-cols-[3fr_2fr]">
+          <div className="md:order-1">
+            <div className="flex flex-col gap-8 px-4 py-14 md:gap-12 md:px-6 md:py-24">
+              <p className="text-balance text-lg leading-relaxed md:text-xl">
+                Full-stack engineer with{" "}
+                <Highlighter
+                  action="underline"
+                  color="#FF9800"
+                  strokeWidth={1}
+                >
+                  four years
+                </Highlighter>{" "}
+                shipping AI products end-to-end, founding engineering on a
+                multi-product platform with{" "}
+                <Highlighter
+                  action="underline"
+                  color="#FF9800"
+                  strokeWidth={1}
+                >
+                  50+ integrations
+                </Highlighter>{" "}
+                and owning everything from API design to deployment.
+              </p>
+              <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.3em]">
+                Currently &mdash; Founding AI/Software Engineer at Zenning AI
+              </p>
+            </div>
+          </div>
+
+          <aside className="relative overflow-hidden border-b md:order-2 md:border-b-0 md:border-l">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-[0.08]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px)",
+              }}
+            />
+            <div className="relative z-10 flex h-full flex-col justify-center gap-4 px-4 py-8 md:px-6 md:py-12">
+              <p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.4em]">
+                // About
+              </p>
+              <h2 className="flex flex-col items-start gap-1 font-semibold text-4xl leading-[0.95] tracking-tight md:text-6xl">
                 <ShutterText
                   className="justify-start!"
-                  text="about me"
+                  text="A bit"
                   trigger="auto"
                 />
-                <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">
-                  .
+                <span className="flex items-baseline">
+                  <ShutterText
+                    className="justify-start!"
+                    text="about me"
+                    trigger="auto"
+                  />
+                  <span className="inline-block font-semibold text-[#FF9800] leading-none tracking-tighter">
+                    .
+                  </span>
                 </span>
-              </span>
-            </h2>
-          </div>
-        </aside>
-      </section>
+              </h2>
+            </div>
+          </aside>
+        </section>
 
-      <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          Work Experience
-        </span>
+        <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
+          <span className="text-muted-foreground text-xs uppercase tracking-wide">
+            Work Experience
+          </span>
+        </div>
+
+        <section>
+          {workExperience.map((item) => (
+            <ExperienceBlock item={item} key={item.company} />
+          ))}
+        </section>
+
+        <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
+          <span className="text-muted-foreground text-xs uppercase tracking-wide">
+            Education
+          </span>
+        </div>
+
+        <section>
+          {education.map((item) => (
+            <EducationBlock item={item} key={item.school} />
+          ))}
+        </section>
       </div>
-
-      <section>
-        {workExperience.map((item) => (
-          <ExperienceBlock item={item} key={item.company} />
-        ))}
-      </section>
-
-      <div className="border-b bg-muted/30 px-4 py-3 md:px-6 md:py-2">
-        <span className="text-muted-foreground text-xs uppercase tracking-wide">
-          Education
-        </span>
-      </div>
-
-      <section>
-        {education.map((item) => (
-          <EducationBlock item={item} key={item.school} />
-        ))}
-      </section>
     </div>
   );
 }

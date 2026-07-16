@@ -8,14 +8,13 @@ import {
   LANDING_LAYOUT_MS,
   LandingHero,
 } from "@/components/landing-hero";
+import { NavDock } from "@/components/navigation/nav-dock";
 import { useTheme } from "@/components/providers/theme.provider";
 import { Highlighter } from "@/components/ui/highlighter";
-import { useSidebar } from "@/components/ui/sidebar";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
-  IconLayout,
   IconMail,
   IconMoon,
   IconSun,
@@ -35,7 +34,6 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { toggleSidebar } = useSidebar();
   const { theme, setTheme } = useTheme();
   // Start settled if this session already saw the intro (avoids a layout flash).
   const [settled, setSettled] = useState(() => {
@@ -58,206 +56,201 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
-      {/* Hero starts full-bleed, then morphs into its grid cell at 4s. */}
-      <LandingHero onSettledChange={handleSettledChange}>
-        <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
-          I&apos;m Emmanuel Alawode, A{" "}
-          <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
-            Software Engineer
-          </Highlighter>{" "}
-          And I like to build stuff.
-        </h1>
-        <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
-          Four years building AI products that don&apos;t quietly break in
-          production, based in London.
-        </p>
+    <div className="flex h-full">
+      {/* Shared left dock toggles the app sidebar */}
+      <NavDock />
 
-        <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">
-          {/* Sidebar alone on the first mobile row; inline with the rest on desktop. */}
-          <span
-            className="nav-attn flex h-11 w-full cursor-pointer items-center justify-center rounded-md border border-[#FF9800]/40 bg-background p-2 text-[#FF9800] transition-colors hover:border-[#FF9800] hover:bg-[#FF9800]/10 md:h-auto md:w-auto"
-            onClick={toggleSidebar}
-            role="button"
-            tabIndex={0}
-            title="Toggle sidebar"
-          >
-            <IconLayout size={22} stroke={1.5} />
-          </span>
+      {/* Landing grid: hero, tech stack, marquee, experience */}
+      <div className="grid h-full min-w-0 w-full flex-1 grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
+        {/* Hero starts full-bleed, then morphs into its grid cell at 4s. */}
+        <LandingHero onSettledChange={handleSettledChange}>
+          <h1 className="w-full max-w-2xl font-semibold text-4xl text-zinc-900 dark:text-foreground">
+            I&apos;m Emmanuel Alawode, A{" "}
+            <Highlighter action="underline" color="#FF9800" strokeWidth={2}>
+              Software Engineer
+            </Highlighter>{" "}
+            And I like to build stuff.
+          </h1>
+          <p className="w-full max-w-lg text-zinc-700 dark:text-muted-foreground">
+            Four years building AI products that don&apos;t quietly break in
+            production, based in London.
+          </p>
 
-          {/* Mobile: perfect 3-col grid. Desktop: dissolve into the flex row. */}
-          <div className="grid w-full grid-cols-3 gap-2 md:contents">
-            <span
-              className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              role="button"
-              tabIndex={0}
-              title="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <IconSun size={22} stroke={1.5} />
-              ) : (
-                <IconMoon size={22} stroke={1.5} />
-              )}
-            </span>
-            {/* Restart the hero walk-in clip from the beginning. */}
-            <HeroReplayButton className="flex h-11 w-full items-center justify-center p-2 md:h-auto md:w-auto" />
-            {socialLinks.map((item) => (
-              <a
-                className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:animate-pulse hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
-                href={item.href}
-                key={item.label}
-                rel="noreferrer"
-                target="_blank"
-                title={item.label}
+          <div className="mt-2 flex w-full max-w-2xl flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:items-center md:gap-3">
+            {/* Theme, replay, and social controls */}
+            <div className="grid w-full grid-cols-3 gap-2 md:contents">
+              <span
+                className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                role="button"
+                tabIndex={0}
+                title="Toggle theme"
               >
-                <item.Icon size={22} stroke={1.5} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </LandingHero>
-
-      {/* Tech stack + marquee enter as the hero settles; experience stays put. */}
-      {settled && (
-        <>
-          <motion.section
-            animate={{ opacity: 1 }}
-            className="landing-section flex flex-col justify-center gap-4 border-y py-12 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6"
-            initial={instantSectionsRef.current ? false : { opacity: 0 }}
-            transition={{
-              duration: LANDING_LAYOUT_MS / 1000,
-              ease: LANDING_EASE,
-              delay: 0.05,
-            }}
-          >
-            <div className="flex flex-col gap-1 px-4 md:px-6">
-              <h2 className="font-semibold text-xl">My Tech Stack</h2>
-              <p className="text-muted-foreground text-xs">
-                The tools I reach for to ship end-to-end.
-              </p>
-            </div>
-            <div className="-ml-px flex flex-wrap">
-              {techStack.map((tech) => (
-                <span
-                  className="-mr-px -mb-px flex grow items-center justify-center border px-3 py-2.5 text-center text-muted-foreground text-sm transition-colors duration-300 hover:bg-muted/30"
-                  key={tech}
+                {theme === "dark" ? (
+                  <IconSun size={22} stroke={1.5} />
+                ) : (
+                  <IconMoon size={22} stroke={1.5} />
+                )}
+              </span>
+              {/* Restart the hero walk-in clip from the beginning. */}
+              <HeroReplayButton className="flex h-11 w-full items-center justify-center p-2 md:h-auto md:w-auto" />
+              {socialLinks.map((item) => (
+                <a
+                  className="flex h-11 w-full cursor-pointer items-center justify-center rounded-md border bg-background p-2 text-muted-foreground transition-colors hover:animate-pulse hover:border-muted-foreground hover:bg-muted hover:text-primary md:h-auto md:w-auto"
+                  href={item.href}
+                  key={item.label}
+                  rel="noreferrer"
+                  target="_blank"
+                  title={item.label}
                 >
-                  {tech}
-                </span>
+                  <item.Icon size={22} stroke={1.5} />
+                </a>
               ))}
             </div>
-          </motion.section>
+          </div>
+        </LandingHero>
 
-          <motion.section
-            animate={{ opacity: 1 }}
-            className="landing-section flex items-center overflow-hidden border md:col-span-6 md:row-span-1"
-            initial={instantSectionsRef.current ? false : { opacity: 0 }}
-            transition={{
-              duration: LANDING_LAYOUT_MS / 1000,
-              ease: LANDING_EASE,
-              delay: 0.12,
-            }}
-          >
-            <div className="marquee w-full overflow-hidden">
-              <div className="marquee-track flex w-max items-center">
-                {[0, 1].map((copy) => (
-                  <div
-                    aria-hidden={copy === 1}
-                    className="flex items-center"
-                    key={copy}
+        {/* Tech stack + marquee enter as the hero settles; experience stays put. */}
+        {settled && (
+          <>
+            <motion.section
+              animate={{ opacity: 1 }}
+              className="landing-section flex flex-col justify-center gap-4 border-y py-12 md:col-span-2 md:row-span-2 md:min-h-0 md:py-6"
+              initial={instantSectionsRef.current ? false : { opacity: 0 }}
+              transition={{
+                duration: LANDING_LAYOUT_MS / 1000,
+                ease: LANDING_EASE,
+                delay: 0.05,
+              }}
+            >
+              <div className="flex flex-col gap-1 px-4 md:px-6">
+                <h2 className="font-semibold text-xl">My Tech Stack</h2>
+                <p className="text-muted-foreground text-xs">
+                  The tools I reach for to ship end-to-end.
+                </p>
+              </div>
+              <div className="-ml-px flex flex-wrap">
+                {techStack.map((tech) => (
+                  <span
+                    className="-mr-px -mb-px flex grow items-center justify-center border px-3 py-2.5 text-center text-muted-foreground text-sm transition-colors duration-300 hover:bg-muted/30"
+                    key={tech}
                   >
-                    {marqueeItems.map((item) => (
-                      <span
-                        className="flex items-center whitespace-nowrap"
-                        key={`${copy}-${item.label}`}
-                      >
-                        <span
-                          className={
-                            item.accent
-                              ? "px-6 py-4 font-medium text-base"
-                              : "px-6 py-4 text-base text-muted-foreground"
-                          }
-                        >
-                          {item.label}
-                        </span>
-                        <span className="text-muted-foreground/40">→</span>
-                      </span>
-                    ))}
-                  </div>
+                    {tech}
+                  </span>
                 ))}
               </div>
-            </div>
-          </motion.section>
-        </>
-      )}
+            </motion.section>
 
-      <motion.section
-        animate={{ opacity: 1 }}
-        className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0"
-        initial={false}
-      >
-        <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-7 md:px-6 md:py-3">
-          <h2 className="font-semibold text-xl">Experience &amp; Projects</h2>
-          <p className="text-muted-foreground text-xs">
-            Where I&apos;ve worked and what I&apos;ve built.
-          </p>
-        </div>
-
-        <div className="grid auto-rows-auto grid-cols-1 border-t sm:grid-cols-2 md:min-h-0 md:flex-1 md:auto-rows-fr lg:grid-cols-3">
-          {experience.map((item, index) => {
-            const cellClass =
-              "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-7 transition-colors duration-300 hover:bg-muted/30 md:px-6 md:py-3";
-            const baseDelay = 0.15 + index * 0.07;
-            const fadeUp = (offset: number) => ({
-              initial: { opacity: 0, y: 6 },
-              animate: { opacity: 1, y: 0 },
-              transition: {
-                duration: 0.35,
-                delay: baseDelay + offset,
+            <motion.section
+              animate={{ opacity: 1 }}
+              className="landing-section flex items-center overflow-hidden border md:col-span-6 md:row-span-1"
+              initial={instantSectionsRef.current ? false : { opacity: 0 }}
+              transition={{
+                duration: LANDING_LAYOUT_MS / 1000,
                 ease: LANDING_EASE,
-              },
-            });
+                delay: 0.12,
+              }}
+            >
+              <div className="marquee w-full overflow-hidden">
+                <div className="marquee-track flex w-max items-center">
+                  {[0, 1].map((copy) => (
+                    <div
+                      aria-hidden={copy === 1}
+                      className="flex items-center"
+                      key={copy}
+                    >
+                      {marqueeItems.map((item) => (
+                        <span
+                          className="flex items-center whitespace-nowrap"
+                          key={`${copy}-${item.label}`}
+                        >
+                          <span
+                            className={
+                              item.accent
+                                ? "px-6 py-4 font-medium text-base"
+                                : "px-6 py-4 text-base text-muted-foreground"
+                            }
+                          >
+                            {item.label}
+                          </span>
+                          <span className="text-muted-foreground/40">→</span>
+                        </span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.section>
+          </>
+        )}
 
-            const inner = (
-              <>
-                <motion.span
-                  className="truncate text-[0.65rem] text-muted-foreground uppercase tracking-wide"
-                  {...fadeUp(0)}
-                >
-                  {item.kind} — {item.period}
-                </motion.span>
-                <motion.h3
-                  className="truncate font-medium text-sm"
-                  {...fadeUp(0.06)}
-                >
-                  {item.title}
-                </motion.h3>
-                <motion.p
-                  className="line-clamp-2 text-muted-foreground text-xs leading-snug"
-                  {...fadeUp(0.12)}
-                >
-                  {item.description}
-                </motion.p>
-              </>
-            );
+        <motion.section
+          animate={{ opacity: 1 }}
+          className="landing-section flex flex-col border md:col-span-6 md:row-span-2 md:min-h-0"
+          initial={false}
+        >
+          <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-7 md:px-6 md:py-3">
+            <h2 className="font-semibold text-xl">Experience &amp; Projects</h2>
+            <p className="text-muted-foreground text-xs">
+              Where I&apos;ve worked and what I&apos;ve built.
+            </p>
+          </div>
 
-            return item.kind === "Project" ? (
-              <Link
-                className={`${cellClass} cursor-pointer`}
-                key={item.title}
-                to="/projects"
-              >
-                {inner}
-              </Link>
-            ) : (
-              <article className={cellClass} key={item.title}>
-                {inner}
-              </article>
-            );
-          })}
-        </div>
-      </motion.section>
+          <div className="grid auto-rows-auto grid-cols-1 border-t sm:grid-cols-2 md:min-h-0 md:flex-1 md:auto-rows-fr lg:grid-cols-3">
+            {experience.map((item, index) => {
+              const cellClass =
+                "-mr-px -mb-px flex min-h-0 flex-col justify-center gap-1 overflow-hidden border-r border-b px-4 py-7 transition-colors duration-300 hover:bg-muted/30 md:px-6 md:py-3";
+              const baseDelay = 0.15 + index * 0.07;
+              const fadeUp = (offset: number) => ({
+                initial: { opacity: 0, y: 6 },
+                animate: { opacity: 1, y: 0 },
+                transition: {
+                  duration: 0.35,
+                  delay: baseDelay + offset,
+                  ease: LANDING_EASE,
+                },
+              });
+
+              const inner = (
+                <>
+                  <motion.span
+                    className="truncate text-[0.65rem] text-muted-foreground uppercase tracking-wide"
+                    {...fadeUp(0)}
+                  >
+                    {item.kind} — {item.period}
+                  </motion.span>
+                  <motion.h3
+                    className="truncate font-medium text-sm"
+                    {...fadeUp(0.06)}
+                  >
+                    {item.title}
+                  </motion.h3>
+                  <motion.p
+                    className="line-clamp-2 text-muted-foreground text-xs leading-snug"
+                    {...fadeUp(0.12)}
+                  >
+                    {item.description}
+                  </motion.p>
+                </>
+              );
+
+              return item.kind === "Project" ? (
+                <Link
+                  className={`${cellClass} cursor-pointer`}
+                  key={item.title}
+                  to="/projects"
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <article className={cellClass} key={item.title}>
+                  {inner}
+                </article>
+              );
+            })}
+          </div>
+        </motion.section>
+      </div>
     </div>
   );
 }

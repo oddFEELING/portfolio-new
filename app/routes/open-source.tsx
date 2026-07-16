@@ -1,6 +1,6 @@
+import { NavDock } from "@/components/navigation/nav-dock";
 import { useTheme } from "@/components/providers/theme.provider";
 import DotGrid from "@/components/ui/dot-grid";
-import { useSidebar } from "@/components/ui/sidebar";
 import type { OpenSourceProject } from "@/data/open-source";
 import { openSourceProjects } from "@/data/open-source";
 import { IconArrowUpRight } from "@tabler/icons-react";
@@ -94,41 +94,35 @@ function OpenSourceRow({
 }
 
 export default function OpenSource() {
-  const { toggleSidebar } = useSidebar();
   const owned = openSourceProjects.filter((p) => p.role === "Owner").length;
   const contributing = openSourceProjects.filter(
     (p) => p.role === "Contributor"
   ).length;
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto md:grid md:grid-rows-[auto_1fr_1fr_1fr] md:overflow-hidden">
-      <header className="flex items-end justify-between gap-4 border-b px-4 py-5 md:px-6">
-        <div className="flex flex-col gap-1">
-          <h1 className="font-semibold text-3xl">Open Source</h1>
-          <p className="text-muted-foreground text-sm">
-            Things I maintain and help build in the open.
-          </p>
-        </div>
-        <div className="flex items-center gap-6">
+    <div className="flex h-full">
+      {/* Shared left dock toggles the app sidebar */}
+      <NavDock />
+
+      {/* Project list column with header counts */}
+      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto md:grid md:grid-rows-[auto_1fr_1fr_1fr] md:overflow-hidden">
+        <header className="flex items-end justify-between gap-4 border-b px-4 py-5 md:px-6">
+          <div className="flex flex-col gap-1">
+            <h1 className="font-semibold text-3xl">Open Source</h1>
+            <p className="text-muted-foreground text-sm">
+              Things I maintain and help build in the open.
+            </p>
+          </div>
           <span className="hidden font-mono text-muted-foreground text-xs uppercase tracking-wider sm:inline">
             {openSourceProjects.length} projects · {owned} owned ·{" "}
             {contributing} contributing
           </span>
-          {/* Sidebar trigger — accent pulse calls attention to navigation */}
-          <button
-            aria-label="Toggle sidebar"
-            className="nav-attn-text font-mono text-xs uppercase tracking-wider"
-            onClick={toggleSidebar}
-            type="button"
-          >
-            [ Nav ]
-          </button>
-        </div>
-      </header>
+        </header>
 
-      {openSourceProjects.map((project, index) => (
-        <OpenSourceRow index={index} key={project.slug} project={project} />
-      ))}
+        {openSourceProjects.map((project, index) => (
+          <OpenSourceRow index={index} key={project.slug} project={project} />
+        ))}
+      </div>
     </div>
   );
 }

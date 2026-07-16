@@ -1,8 +1,8 @@
+import { NavDock } from "@/components/navigation/nav-dock";
 import { Highlighter } from "@/components/ui/highlighter";
 import Noise from "@/components/ui/noise";
 import PixelBlast from "@/components/ui/pixel-blast";
 import { ShutterText } from "@/components/ui/shutter-text";
-import { useSidebar } from "@/components/ui/sidebar";
 import { projects } from "@/data/projects";
 import type { Project } from "@/data/projects";
 import { IconArrowUpRight } from "@tabler/icons-react";
@@ -73,11 +73,12 @@ function ProjectTile({
 
 export default function Projects() {
   const [nubia, goloka, faa, chowbea] = projects;
-  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="grid h-full w-full grid-cols-1 overflow-y-auto md:grid-cols-6 md:grid-rows-5 md:overflow-hidden">
-      <header className="landing-section relative flex overflow-hidden border md:col-span-2 md:row-span-2 md:min-h-0">
+      {/* Hero cell: left dock + project intro panel */}
+      <header className="landing-section relative flex items-stretch overflow-hidden border md:col-span-2 md:row-span-2 md:min-h-0">
+        <NavDock />
         <div className="relative flex flex-1 flex-col justify-center gap-2 overflow-hidden px-4 py-10 md:px-6 md:py-6">
           <PixelBlast
             className="absolute inset-0"
@@ -114,18 +115,6 @@ export default function Projects() {
             </p>
           </div>
         </div>
-        {/* Sidebar trigger — accent pulse calls attention to navigation */}
-        <button
-          aria-label="Toggle sidebar"
-          className="nav-attn-text flex shrink-0 items-center justify-center border-l border-[#FF9800]/30 px-3 transition-colors duration-300 hover:bg-[#FF9800]/10"
-          onClick={toggleSidebar}
-          type="button"
-        >
-          <span className="rotate-180 font-mono text-xs uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
-            <span className="md:hidden">Sidebar</span>
-            <span className="hidden md:inline">Toggle Sidebar</span>
-          </span>
-        </button>
       </header>
 
       <ProjectTile
