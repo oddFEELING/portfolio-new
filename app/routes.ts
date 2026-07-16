@@ -1,8 +1,8 @@
 import {
   index,
   layout,
-  route,
   type RouteConfig,
+  route,
 } from "@react-router/dev/routes";
 
 export default [
@@ -15,6 +15,7 @@ export default [
     route("/contact", "routes/contact.tsx"),
     route("/open-source", "routes/open-source.tsx"),
     route("/blog", "routes/blog.tsx"),
+    route("/blog/:slug", "routes/blog.$slug.tsx"),
     route("/operating-system", "routes/operating-system.tsx"),
   ]),
 ] satisfies RouteConfig;
