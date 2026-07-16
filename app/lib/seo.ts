@@ -44,8 +44,16 @@ export const SITEMAP_ROUTES = [
   { path: "/experience", priority: "0.9", changefreq: "monthly" },
   { path: "/projects", priority: "0.9", changefreq: "monthly" },
   { path: "/open-source", priority: "0.8", changefreq: "monthly" },
+  { path: "/blog", priority: "0.8", changefreq: "weekly" },
   { path: "/contact", priority: "0.7", changefreq: "yearly" },
 ] as const;
+
+export type SitemapEntry = {
+  path: string;
+  priority?: string;
+  changefreq?: string;
+  lastmod?: string;
+};
 
 type BuildMetaOptions = {
   title?: string;
@@ -178,15 +186,27 @@ export function buildSiteJsonLd() {
 }
 
 /** XML sitemap body for all public indexable routes. */
-export function buildSitemapXml(lastmod = new Date().toISOString().slice(0, 10)) {
-  const urls = SITEMAP_ROUTES.map(
-    (route) => `  <url>
+export function buildSitemapXml(
+  lastmod = new Date().toISOString().slice(0, 10),
+  extraEntries: SitemapEntry[] = []
+) {
+  const staticUrls = SITEMAP_ROUTES.map((route) => ({
+    path: route.path,
+    priority: route.priority,
+    changefreq: route.changefreq,
+    lastmod,
+  }));
+
+  const urls = [...staticUrls, ...extraEntries]
+    .map(
+      (route) => `  <url>
     <loc>${absoluteUrl(route.path)}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
+    <lastmod>${route.lastmod ?? lastmod}</lastmod>
+    <changefreq>${route.changefreq ?? "monthly"}</changefreq>
+    <priority>${route.priority ?? "0.7"}</priority>
   </url>`
-  ).join("\n");
+    )
+    .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
